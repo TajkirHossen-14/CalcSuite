@@ -1,0 +1,379 @@
+/* ============================================================
+   CalcSuite — Reset, typography, layout shell
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image: var(--bg-tint);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--t-mid), color var(--t-mid);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+  margin: 0 0 var(--sp-3);
+  letter-spacing: -0.02em;
+}
+h1 { font-size: var(--fs-2xl); }
+h2 { font-size: var(--fs-xl); }
+h3 { font-size: var(--fs-lg); }
+p { margin: 0 0 var(--sp-3); }
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-strong); }
+
+ul, ol { margin: 0 0 var(--sp-3); padding-left: 1.15rem; }
+li { margin-bottom: .3rem; }
+
+code, kbd, samp, .mono { font-family: var(--font-mono); font-size: .92em; }
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--r-xs);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--primary);
+  color: var(--on-primary);
+  padding: .6rem 1rem;
+  border-radius: 0 0 var(--r-sm) 0;
+}
+.skip-link:focus { left: 0; }
+
+/* ---------------- Header ---------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: var(--glass);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.header-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  min-height: var(--header-h);
+  padding: .6rem var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.32rem;
+  color: var(--text);
+  letter-spacing: -.03em;
+  flex-shrink: 0;
+}
+.brand:hover { color: var(--text); }
+.brand-mark { display: inline-flex; transition: transform var(--t-mid); }
+.brand:hover .brand-mark { transform: rotate(-8deg) scale(1.06); }
+.brand-accent {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Wrapper that is a plain row on desktop and the drawer on mobile */
+.header-panel {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* On desktop the nav takes the free space and centres its links inside it,
+   so the menu sits between the brand and the actions rather than hugging left. */
+@media (min-width: 861px) {
+  .header-panel .main-nav {
+    flex: 1 1 auto;
+    justify-content: center;
+    margin-left: 0;
+  }
+}
+
+.main-nav { display: flex; gap: .2rem; margin-left: var(--sp-3); }
+.nav-icon { display: none; }
+.main-nav a {
+  padding: .48rem .78rem;
+  border-radius: var(--r-pill);
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: .925rem;
+  transition: color var(--t-fast), background var(--t-fast);
+  white-space: nowrap;
+}
+.main-nav a:hover { color: var(--text); background: var(--surface-2); }
+.main-nav a.is-active { color: var(--primary); background: var(--primary-soft); }
+
+.header-actions { margin-left: auto; display: flex; align-items: center; gap: .5rem; }
+
+.search-wrap { position: relative; display: flex; align-items: center; }
+.search-icon {
+  position: absolute; left: .95rem;
+  top: 50%;
+  transform: translateY(-50%);   /* centred on the input, not the flex line */
+  color: var(--text-muted); font-size: .9rem; pointer-events: none;
+  transition: color var(--t-fast);
+}
+.search-wrap:focus-within .search-icon { color: var(--primary); }
+/* NOTE: these are scoped as `.search-wrap .search-input` (specificity 0,2,0)
+   deliberately. components.css styles `input[type='search']` (0,1,1), which
+   would otherwise win and reset the padding, killing the icon clearance. */
+.search-wrap .search-input {
+  width: 272px;
+  /* left padding must clear the icon so the placeholder never overlaps it */
+  padding: .55rem 2.4rem .55rem 2.95rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  text-overflow: ellipsis;
+  transition: width var(--t-mid), border-color var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
+}
+/* Placeholder must stay legible — it is the only label this control has */
+.search-wrap .search-input::placeholder { color: var(--text-muted); opacity: 1; }
+.search-wrap .search-input:hover { border-color: var(--primary); }
+.search-wrap .search-input:focus {
+  outline: none;
+  width: 320px;
+  background: var(--surface);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--ring);
+}
+.search-wrap .search-input:focus::placeholder { color: var(--text-faint); }
+.search-kbd {
+  position: absolute; right: .55rem;
+  font-size: .68rem;
+  padding: .05rem .35rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xs);
+  color: var(--text-faint);
+  background: var(--surface);
+  pointer-events: none;
+}
+.search-input:focus ~ .search-kbd { opacity: 0; }
+
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + .5rem);
+  right: 0;
+  width: min(380px, 86vw);
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lg);
+  padding: .35rem;
+  z-index: 120;
+  animation: pop-in var(--t-fast) both;
+}
+.search-result {
+  display: flex; align-items: center; gap: .7rem;
+  width: 100%;
+  padding: .5rem .6rem;
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-size: var(--fs-sm);
+}
+.search-result:hover, .search-result.is-active { background: var(--surface-2); color: var(--text); }
+.search-result i { color: var(--primary); width: 1.1rem; text-align: center; }
+.search-result small { color: var(--text-faint); margin-left: auto; font-size: var(--fs-xs); }
+.search-empty { padding: .8rem; color: var(--text-muted); font-size: var(--fs-sm); text-align: center; }
+
+/* Needs to out-specify .icon-btn from components.css, which loads later */
+.header-inner .nav-toggle { display: none; }
+/* Icon buttons grow a text label only inside the mobile drawer */
+.action-label { display: none; }
+#github-link:hover { color: var(--primary); }
+
+.route-progress {
+  height: 2px;
+  width: 0;
+  background: var(--gradient-brand);
+  transition: width var(--t-mid), opacity var(--t-mid);
+  opacity: 0;
+}
+.route-progress.is-loading { width: 70%; opacity: 1; }
+.route-progress.is-done { width: 100%; opacity: 0; }
+
+/* ---------------- Main ---------------- */
+#main-content {
+  flex: 1 0 auto;
+  max-width: var(--wrap);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-4) var(--sp-8);
+  outline: none;
+}
+.route-view { animation: route-in var(--t-slow) both; }
+
+@keyframes route-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(-4px) scale(.99); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------------- Footer ---------------- */
+.site-footer {
+  border-top: 1px solid var(--border-soft);
+  background: var(--surface);
+  margin-top: auto;
+}
+.footer-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-4);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--sp-4);
+}
+.footer-brand strong { font-family: var(--font-display); font-size: 1.05rem; }
+.footer-brand p { color: var(--text-muted); font-size: var(--fs-sm); margin: .3rem 0 0; }
+.footer-links { display: flex; flex-wrap: wrap; gap: .35rem 1.1rem; align-content: start; justify-content: flex-end; }
+.footer-links a { font-size: var(--fs-sm); color: var(--text-muted); }
+.footer-links a:hover { color: var(--primary); }
+.footer-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: var(--sp-4);
+  border-top: 1px dashed var(--border);
+  color: var(--text-faint);
+  font-size: var(--fs-xs);
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 980px) {
+  .search-wrap .search-input { width: 190px; }
+  .search-wrap .search-input:focus { width: 240px; }
+  .main-nav { margin-left: 0; }
+  .main-nav a { padding: .45rem .58rem; font-size: .88rem; }
+}
+
+/* ---- Mobile drawer: everything except brand + burger lives inside ---- */
+@media (max-width: 860px) {
+  .header-inner .nav-toggle { display: inline-flex; margin-left: auto; order: 3; }
+
+  .header-panel {
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: .35rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: .7rem var(--sp-4) var(--sp-4);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+    max-height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+    transition: opacity var(--t-fast), transform var(--t-fast);
+  }
+  .header-panel.is-open { opacity: 1; transform: none; pointer-events: auto; }
+
+  .main-nav { flex-direction: column; gap: .15rem; margin-left: 0; }
+  .main-nav a {
+    display: flex; align-items: center; gap: .7rem;
+    padding: .7rem .8rem;
+    border-radius: var(--r-sm);
+    font-size: var(--fs-md);
+  }
+  .nav-icon { display: inline-block; width: 1.15rem; text-align: center; color: var(--text-faint); }
+  .main-nav a.is-active .nav-icon { color: var(--primary); }
+
+  /* Search, theme and GitHub become full-width menu rows */
+  .header-actions {
+    margin-left: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: .15rem;
+    padding-top: .5rem;
+    border-top: 1px dashed var(--border);
+  }
+  /* Search sits above everything else in the drawer */
+  .search-wrap {
+    order: -1;
+    width: 100%;
+    margin-bottom: .55rem;
+    padding-bottom: .6rem;
+    border-bottom: 1px dashed var(--border);
+  }
+  .search-wrap .search-input,
+  .search-wrap .search-input:focus { width: 100%; }
+  .search-kbd { display: none; }
+  .search-dropdown { width: 100%; left: 0; right: 0; }
+
+  .header-actions .action-btn {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .7rem;
+    height: auto;
+    padding: .7rem .8rem;
+    border: 0;
+    background: transparent;
+    border-radius: var(--r-sm);
+    color: var(--text-muted);
+    font-size: var(--fs-md);
+    font-weight: 500;
+  }
+  .header-actions .action-btn:hover { background: var(--surface-2); color: var(--text); }
+  .header-actions .action-btn i { width: 1.15rem; text-align: center; flex-shrink: 0; }
+  .action-label { display: inline; }
+
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-links { justify-content: flex-start; }
+  #main-content { padding: var(--sp-5) var(--sp-4) var(--sp-7); }
+}
+
+/* The wordmark stays visible at every width, per design */
+@media (max-width: 420px) {
+  .brand { font-size: 1.18rem; }
+  .brand-text { display: inline; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
+}
