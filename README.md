@@ -27,14 +27,14 @@
 - [📁 Project Structure](#-project-structure)
 - [🧠 Advanced JS Concepts Showcased](#-advanced-js-concepts-showcased)
 - [🗺️ Roadmap](#️-roadmap)
-- [🤝 Contributing](#-contributing)
+- [🤝🏼 Contributing](#-contributing)
 - [📄 License](#-license)
 
 ---
 
 ## 📑 Overview
 
-**CalcSuite** is a static, framework-free web app that brings together **~50 calculators and converters** — everything from a Simple Calculator to a live Currency Converter — inside **one modern, unified interface**.
+**CalcSuite** is a static, framework-free web app that brings together **~50 calculators and converters** – everything from a Simple Calculator to a live Currency Converter – inside **one modern, unified interface**.
 
 ---
 
@@ -47,22 +47,22 @@
 | **Design** | Ad-heavy, dated layouts | 🎨 Clean, modern, distinctive UI |
 | **Theme** | Fixed light theme | 🌗 Dark / Light mode, remembered on reload |
 | **Devices** | Desktop-first, cramped on mobile | 📱 Mobile-first, fully responsive |
-| **Stack** | Often bloated with dependencies | 🧩 Pure vanilla JS — no frameworks at all |
+| **Stack** | Often bloated with dependencies | 🧩 Pure vanilla JS – no frameworks at all |
 
 ---
 
 ## ✨ Key Features
 
-- ⚡ **Live calculations** — results update instantly as you type, no "Calculate" button needed
-- 🔄 **Unified bidirectional tools** — dropdown selectors + a swap (⇄) button handle every conversion direction
-- 🌗 **Dark / Light mode** — toggle with your preference saved via `localStorage`
-- 📱 **Fully responsive** — mobile-first design that scales cleanly to desktop
-- 🔍 **Live search** — instantly filter all 49 tools from the home page as you type
+- ⚡ **Live Calculations** — results update instantly as you type, no "Calculate" button needed
+- 🔄 **Unified Bidirectional Tools** — dropdown selectors + a swap (⇄) button handle every conversion direction
+- 🌗 **Dark / Light Mode** — toggle with your preference saved via `localStorage`
+- 📱 **Fully Responsive** — mobile-first design that scales cleanly to desktop
+- 🔍 **Live Search** — instantly filter all 49 tools from the home page as you type
 - 📋 **Copy-to-clipboard** — one-click copy on every result, powered by the Clipboard API
-- 🧭 **Client-side routing** — smooth SPA feel via a lightweight hash-based router, with zero page reloads
-- 💾 **Persistent history & favorites** — pin your go-to tools and revisit past calculations
-- 🌍 **Live currency rates** — real exchange-rate data via `fetch` + `async/await`
-- 🧠 **Originally-written explanations** — every tool includes a short breakdown of the formula/logic behind it
+- 🧭 **Client-side Routing** — smooth SPA feel via a lightweight hash-based router, with zero page reloads
+- 💾 **Persistent History & Favorites** — pin your go-to tools and revisit past calculations
+- 🌍 **Live Currency Rates** — real exchange-rate data via `fetch` + `async/await`
+- 🧠 **Originally-written Explanations** — every tool includes a short breakdown of the formula/logic behind it
 
 ---
 
@@ -82,55 +82,55 @@
 
 ### 🧮 Calculators (31 Tools)
 
-### ➗ Math
+#### ➗ Math
 - Simple Calculator
 - Scientific Calculator
 - Percentage Calculator
-- Average Calculator (mean / median / mode)
+- Average Calculator (Mean / Median / Mode)
 - Standard Deviation & Variance Calculator
 - Fraction Calculator
 - Ratio Calculator
 - LCM & GCF Calculator
 - Quadratic Equation Solver
-- Base Calculator (binary / hex / octal arithmetic)
+- Base Calculator (Binary / Hex / Octal Arithmetic)
 - Random Number Generator
 
-### 💰 Financial
+#### 💰 Financial
 - Simple & Compound Interest Calculator
 - Loan / EMI Calculator
 - Discount Calculator
 - VAT / Tax Calculator
 - Profit Margin Calculator
 
-### 🏋️ Health & Fitness
+#### 🏋️ Health & Fitness
 - BMI Calculator
 - BMR / Daily Calorie Needs Calculator
 - Ideal Body Weight Calculator
 
-### 📅 Date & Time
+#### 📅 Date & Time
 - Age Calculator
 - Date Difference Calculator
 - Countdown Calculator
 - Time Duration Calculator
 
-### 🎓 Grade / Education
+#### 🎓 Grade / Education
 - GPA Calculator
 - Grade / Percentage Calculator
 - Final Grade Needed Calculator
 
-### 🔌 Electrical & Physics
+#### 🔌 Electrical & Physics
 - Ohm's Law Calculator
 - Watt–Volt–Amp–Ohm Calculator
 - Power Calculator
 
-### 🧾 Everyday Utility
+#### 🧾 Everyday Utility
 - Tip Calculator
 - Age in Days/Weeks/Hours Calculator
 
 
 ### 🔄 Converters (19 Tools)
 
-### 📏 Everyday Units
+#### 📏 Everyday Units
 - Length Converter
 - Weight/Mass Converter
 - Temperature Converter
@@ -140,23 +140,23 @@
 - Data Storage Converter
 - Custom Unit Converter
 
-### 🔢 Number System
+#### 🔢 Number System
 - Base Converter (Binary ⟷ Decimal ⟷ Octal ⟷ Hex)
 - ASCII ⟷ Text ⟷ Binary ⟷ Hex Converter
 - Roman Numeral Converter
 - Fraction ⟷ Decimal ⟷ Percentage Converter
 - Scientific Notation Converter
 
-### 🎨 Color
+#### 🎨 Color
 - RGB ⟷ HEX ⟷ HSL ⟷ HSV ⟷ CMYK (with live swatch preview)
 
-### ⚡ Electrical / Electronics
+#### ⚡ Electrical / Electronics
 - Power Converter
 - Voltage Converter
 - Frequency Converter
 - Energy Converter
 
-### 💱 Currency
+#### 💱 Currency
 - Live Currency Converter (real-time exchange rates)
 
 </details>
@@ -167,7 +167,7 @@
 
 CalcSuite ships with a full **dark and light theme system** built on CSS custom properties. The active theme is:
 
-1. Read from `localStorage` **before first paint** — no flash of the wrong theme
+1. Read from `localStorage` **before first paint** – no flash of the wrong theme
 2. Toggleable from the header at any time
 3. Persisted automatically for your next visit
 
@@ -175,7 +175,7 @@ CalcSuite ships with a full **dark and light theme system** built on CSS custom 
 
 ## 🚀 Getting Started
 
-CalcSuite is 100% static — no build step required. Because it uses ES Modules and `fetch`, it needs to be served over `http(s)`, not opened directly as a `file://`.
+CalcSuite is 100% static – no build step required. Because it uses ES Modules and `fetch`, it needs to be served over `http(s)`, not opened directly as a `file://`.
 
 ### Prerequisites
 - A modern browser (Chrome, Opera, Brave, Firefox, Edge)
@@ -318,15 +318,15 @@ CalcSuite/
 
 ## 🧠 Advanced JS Concepts Showcased
 
-- 🧱 **ES6+ Classes** — each tool encapsulates its own state and logic
-- 📦 **ES Modules** — one `import`/`export` module per tool, dynamically loaded per route
-- 🔁 **Closures & higher-order functions** — reusable calculation logic (e.g. the generic `UnitConverter` class powers 6+ different converters)
-- 🎯 **Event delegation** — powers the router and dynamic tool switching
-- ⏳ **Debouncing** — smooth, efficient live-input calculations
-- 🌐 **Async/Await + Fetch API** — real-time currency exchange rates
-- 💾 **LocalStorage** — theme, history, and favorites persistence
-- 📋 **Clipboard API** — one-click "copy result" on every tool
-- ✅ **Inline form validation** — clear, immediate feedback on invalid input
+- 🧱 **ES6+ Classes** — Each tool encapsulates its own state and logic
+- 📦 **ES Modules** — One `import`/`export` module per tool, dynamically loaded per route
+- 🔁 **Closures & higher-order functions** — Reusable calculation logic (e.g. the generic `UnitConverter` class powers 6+ different converters)
+- 🎯 **Event delegation** — Powers the router and dynamic tool switching
+- ⏳ **Debouncing** — Smooth, efficient live-input calculations
+- 🌐 **Async/Await + Fetch API** — Real-time currency exchange rates
+- 💾 **LocalStorage** — Theme, history, and favorites persistence
+- 📋 **Clipboard API** — One-click "copy result" on every tool
+- ✅ **Inline form validation** — Clear, immediate feedback on invalid input
 
 ---
 
@@ -336,7 +336,7 @@ CalcSuite/
 - [ ] Calculation history panel
 - [ ] Favorite / pin tools to the home page
 - [ ] Keyboard shortcuts (`Enter` to calculate, `Esc` to clear)
-- [ ] PWA support — installable, offline-ready via Service Worker
+- [ ] PWA support – installable, offline-ready via Service Worker
 
 ---
 
@@ -359,4 +359,4 @@ If you find CalcSuite useful, consider giving it a star ⭐
 
 ## 📜 License
 
-This project is licensed under the **MIT License**.
+This project is licensed under the [MIT License](LICENSE).
