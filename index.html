@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="CalcSuite — every calculator and converter you need, in one modern place. 49+ unified, live, bidirectional tools built with vanilla JavaScript.">
+<meta name="theme-color" content="#0b0d13">
+<title>CalcSuite – Every Calculator and Converter You Need</title>
+
+<link rel="icon" href="Assets/Favicon/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.json">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/themes.css">
+
+<script>
+  /* Apply the stored theme before first paint (no flash of wrong theme). */
+  (function () {
+    try {
+      var stored = JSON.parse(localStorage.getItem('calcsuite:theme'));
+      var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = (stored === 'light' || stored === 'dark') ? stored : (sysDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to Main Content</a>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#/" aria-label="CalcSuite home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="31" height="31" role="img" aria-hidden="true">
+          <rect x="2" y="2" width="28" height="28" rx="8" fill="url(#bg-grad)"></rect>
+          <path d="M9 11h6M12 8v6M18 11h6M18 19.5h6M18 23h6M9.5 18l5 5M14.5 18l-5 5"
+                stroke="#fff" stroke-width="2.1" stroke-linecap="round" fill="none"></path>
+          <defs>
+            <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7c6cff"></stop>
+              <stop offset="100%" stop-color="#2ee6c5"></stop>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <span class="brand-text">Calc<span class="brand-accent">Suite</span></span>
+    </a>
+
+    <button class="icon-btn nav-toggle" id="nav-toggle" type="button"
+            aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+
+    <div class="header-panel" id="nav-panel">
+      <nav class="main-nav" id="main-nav" aria-label="Primary">
+        <a href="#/" data-nav="#/"><i class="fa-solid fa-house nav-icon" aria-hidden="true"></i>Home</a>
+        <a href="#/calculators" data-nav="#/calculators"><i class="fa-solid fa-calculator nav-icon" aria-hidden="true"></i>Calculators</a>
+        <a href="#/converters" data-nav="#/converters"><i class="fa-solid fa-right-left nav-icon" aria-hidden="true"></i>Converters</a>
+        <a href="#/favorites" data-nav="#/favorites"><i class="fa-solid fa-star nav-icon" aria-hidden="true"></i>Favorites</a>
+        <a href="#/history" data-nav="#/history"><i class="fa-solid fa-clock-rotate-left nav-icon" aria-hidden="true"></i>History</a>
+      </nav>
+
+      <div class="search-wrap" role="search">
+        <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+        <input type="search" id="global-search" class="search-input" placeholder="Search tools…"
+               autocomplete="off" aria-label="Search calculators and converters"
+               aria-expanded="false" aria-controls="search-results">
+        <kbd class="search-kbd">/</kbd>
+        <div class="search-dropdown" id="search-results" role="listbox" hidden></div>
+      </div>
+
+      <div class="header-actions">
+        <button class="icon-btn action-btn" id="theme-toggle" type="button" aria-label="Toggle dark and light theme" title="Toggle theme">
+          <i class="fa-solid fa-moon icon-moon" aria-hidden="true"></i>
+          <i class="fa-solid fa-sun icon-sun" aria-hidden="true"></i>
+          <span class="action-label">Theme</span>
+        </button>
+
+        <a class="icon-btn action-btn" id="github-link" href="https://github.com/TajkirHossen-14"
+           target="_blank" rel="noopener noreferrer" title="View the developer on GitHub" aria-label="GitHub profile">
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+          <span class="action-label">GitHub</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="route-progress" id="route-progress" aria-hidden="true"></div>
+</header>
+
+<main id="main-content" tabindex="-1"></main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong>CalcSuite</strong>
+      <p>Every calculator and converter you need, in one modern place.</p>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="#/calculators">All calculators</a>
+      <a href="#/converters">All converters</a>
+      <a href="#/favorites">Favorites</a>
+      <a href="#/history">History</a>
+      <a href="#/about">About</a>
+      <a href="https://github.com/TajkirHossen-14" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
+      </a>
+    </nav>
+    <p class="footer-note">© 2026 CalcSuite. All Rights Reserved</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
