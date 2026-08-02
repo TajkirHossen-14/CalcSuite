@@ -194,14 +194,17 @@ export const countTools = (group) => TOOLS.filter((t) => !group || t.group === g
  * Fuzzy-ish search: scores name matches above description/keyword matches.
  * Pure function + closure over the query — used by header search and home grid.
  */
-export function searchTools(query, limit = Infinity) {
+export function searchTools(query, limit = Infinity) 
+{
   const q = query.trim().toLowerCase();
   if (!q) return [];
   const terms = q.split(/\s+/);
   return TOOLS
-    .map((tool) => {
+    .map((tool) => 
+    {
       let score = 0;
-      for (const term of terms) {
+      for (const term of terms) 
+      {
         if (!tool.searchText.includes(term)) return null;
         if (tool.name.toLowerCase().startsWith(term)) score += 6;
         else if (tool.name.toLowerCase().includes(term)) score += 4;
