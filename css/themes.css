@@ -1,0 +1,73 @@
+/* ============================================================
+   CalcSuite — Theme-specific refinements & the toggle itself
+   ============================================================ */
+
+#theme-toggle .icon-sun,
+#theme-toggle .icon-moon {
+  position: absolute;
+  transition: transform var(--t-slow), opacity var(--t-mid);
+}
+:root[data-theme='dark'] #theme-toggle .icon-moon { opacity: 1; transform: rotate(0) scale(1); }
+:root[data-theme='dark'] #theme-toggle .icon-sun { opacity: 0; transform: rotate(-90deg) scale(.4); }
+:root[data-theme='light'] #theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(.4); }
+:root[data-theme='light'] #theme-toggle .icon-sun { opacity: 1; transform: rotate(0) scale(1); }
+
+#theme-toggle { position: relative; overflow: hidden; }
+
+/* Inside the mobile drawer the toggle is a labelled row, so the two icons must
+   sit in normal flow and the inactive one must take up no space at all. */
+@media (max-width: 860px) {
+  #theme-toggle { overflow: visible; }
+  #theme-toggle .icon-sun,
+  #theme-toggle .icon-moon { position: static; transform: none; }
+  :root[data-theme='dark'] #theme-toggle .icon-sun,
+  :root[data-theme='light'] #theme-toggle .icon-moon { display: none; }
+  :root[data-theme='dark'] #theme-toggle .icon-moon,
+  :root[data-theme='light'] #theme-toggle .icon-sun { opacity: 1; transform: none; }
+}
+#theme-toggle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-brand);
+  opacity: 0;
+  transition: opacity var(--t-mid);
+}
+#theme-toggle:active::after { opacity: .22; }
+
+/* Theme-switch sweep animation applied to <html> for one frame batch */
+:root.theme-transition,
+:root.theme-transition *,
+:root.theme-transition *::before,
+:root.theme-transition *::after {
+  transition: background-color 300ms ease, border-color 300ms ease,
+              color 300ms ease, fill 300ms ease, box-shadow 300ms ease !important;
+}
+
+/* Dark theme gets slightly luminous card edges */
+:root[data-theme='dark'] .panel,
+:root[data-theme='dark'] .tool-card {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, .025), transparent 40%);
+}
+
+/* Light theme keeps result panels tinted rather than glowing */
+:root[data-theme='light'] .result-panel {
+  background: linear-gradient(135deg, rgba(91, 70, 229, .07), rgba(10, 168, 140, .07));
+}
+:root[data-theme='dark'] .result-panel {
+  background: linear-gradient(135deg, rgba(124, 108, 255, .16), rgba(46, 230, 197, .1));
+}
+
+/* Selection colours */
+::selection { background: var(--primary); color: var(--on-primary); }
+
+/* Scrollbars */
+* { scrollbar-width: thin; scrollbar-color: var(--surface-3) transparent; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border-radius: var(--r-pill);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover { background: var(--border); background-clip: content-box; }
