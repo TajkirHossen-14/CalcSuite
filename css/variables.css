@@ -1,0 +1,128 @@
+/* ============================================================
+   CalcSuite — Design tokens
+   All theming is driven by CSS custom properties defined here.
+   ============================================================ */
+
+:root {
+  /* Typography */
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Type scale */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-base: 0.9375rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.6rem;
+  --fs-2xl: 2.1rem;
+  --fs-3xl: clamp(2.2rem, 5.4vw, 3.6rem);
+
+  /* Spacing scale */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4.5rem;
+
+  /* Radii */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* Motion */
+  --t-fast: 120ms cubic-bezier(.4, 0, .2, 1);
+  --t-mid: 220ms cubic-bezier(.4, 0, .2, 1);
+  --t-slow: 420ms cubic-bezier(.16, .84, .44, 1);
+
+  /* Layout */
+  --wrap: 1180px;
+  --header-h: 68px;
+
+  /* Brand constants (identical in both themes) */
+  --brand-1: #7c6cff;
+  --brand-2: #2ee6c5;
+  --brand-3: #ff8a5b;
+  --gradient-brand: linear-gradient(115deg, var(--brand-1), var(--brand-2));
+}
+
+/* ---------------- Dark theme (default) ---------------- */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0b0d13;
+  --bg-tint: radial-gradient(1100px 620px at 12% -10%, rgba(124, 108, 255, .22), transparent 62%),
+             radial-gradient(900px 560px at 100% 0%, rgba(46, 230, 197, .14), transparent 58%);
+  --surface: #12161f;
+  --surface-2: #181e2a;
+  --surface-3: #202836;
+  --border: #262e3e;
+  --border-soft: #1d2431;
+
+  --text: #e9edf6;
+  --text-muted: #98a3b8;
+  --text-faint: #6d788e;
+
+  --primary: #8b7bff;
+  --primary-strong: #a294ff;
+  --primary-soft: rgba(124, 108, 255, .16);
+  --on-primary: #0b0d13;
+
+  --accent: #2ee6c5;
+  --accent-soft: rgba(46, 230, 197, .14);
+
+  --success: #35d07f;
+  --warning: #ffb84d;
+  --danger: #ff6b6b;
+  --info: #58b6ff;
+
+  --ring: rgba(139, 123, 255, .45);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .5);
+  --shadow-md: 0 10px 30px -12px rgba(0, 0, 0, .75);
+  --shadow-lg: 0 30px 70px -30px rgba(0, 0, 0, .85);
+  --glass: rgba(18, 22, 31, .78);
+}
+
+/* ---------------- Light theme ---------------- */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f5f6fb;
+  --bg-tint: radial-gradient(1100px 620px at 10% -12%, rgba(124, 108, 255, .18), transparent 60%),
+             radial-gradient(900px 520px at 100% 0%, rgba(46, 230, 197, .16), transparent 58%);
+  --surface: #ffffff;
+  --surface-2: #f2f4fa;
+  --surface-3: #e9edf6;
+  --border: #e0e5f0;
+  --border-soft: #eaeef7;
+
+  --text: #131826;
+  --text-muted: #5c6579;
+  --text-faint: #8b93a7;
+
+  --primary: #5b46e5;
+  --primary-strong: #4a35d6;
+  --primary-soft: rgba(91, 70, 229, .1);
+  --on-primary: #ffffff;
+
+  --accent: #0aa88c;
+  --accent-soft: rgba(10, 168, 140, .12);
+
+  --success: #12a05f;
+  --warning: #c07800;
+  --danger: #d63a3a;
+  --info: #1f7fd4;
+
+  --ring: rgba(91, 70, 229, .35);
+  --shadow-sm: 0 1px 2px rgba(19, 24, 38, .06);
+  --shadow-md: 0 12px 28px -14px rgba(19, 24, 38, .28);
+  --shadow-lg: 0 30px 64px -28px rgba(19, 24, 38, .3);
+  --glass: rgba(255, 255, 255, .8);
+}
