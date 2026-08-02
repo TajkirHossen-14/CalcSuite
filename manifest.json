@@ -1,0 +1,25 @@
+{
+  "name": "CalcSuite — Calculators & Converters",
+  "short_name": "CalcSuite",
+  "description": "Every calculator and converter you need, in one modern place. 50 unified, live tools that work offline.",
+  "start_url": "./index.html#/",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b0d13",
+  "theme_color": "#0b0d13",
+  "categories": ["utilities", "productivity", "education"],
+  "icons": [
+    {
+      "src": "Assets/Favicon/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "Currency Converter", "url": "./index.html#/converters/currency" },
+    { "name": "Percentage Calculator", "url": "./index.html#/calculators/percentage" },
+    { "name": "Unit Length Converter", "url": "./index.html#/converters/length" }
+  ]
+}
