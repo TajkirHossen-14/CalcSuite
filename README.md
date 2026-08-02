@@ -13,7 +13,7 @@
 
 </div>
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 📌 Table of Contents
 
@@ -30,13 +30,13 @@
 - [🤝🏼 Contributing](#-contributing)
 - [📄 License](#-license)
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 📑 Overview
 
 **CalcSuite** is a static, framework-free web app that brings together **~50 calculators and converters** – everything from a Simple Calculator to a live Currency Converter – inside **one modern, unified interface**.
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 💡 Why CalcSuite?
 
@@ -49,7 +49,7 @@
 | **Devices** | Desktop-first, cramped on mobile | 📱 Mobile-first, fully responsive |
 | **Stack** | Often bloated with dependencies | 🧩 Pure vanilla JS – no frameworks at all |
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## ✨ Key Features
 
@@ -64,7 +64,7 @@
 - 🌍 **Live Currency Rates** — real exchange-rate data via `fetch` + `async/await`
 - 🧠 **Originally-written Explanations** — every tool includes a short breakdown of the formula/logic behind it
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 🛠️ Built With
 
@@ -76,7 +76,7 @@
 | **Persistence** | `localStorage` (theme, history, favorites) |
 | **Live Data** | `fetch` + `async/await` for currency exchange rates |
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 🧰 Full Tool List
 
@@ -161,7 +161,7 @@
 
 </details>
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 🌗 Theming
 
@@ -171,7 +171,7 @@ CalcSuite ships with a full **dark and light theme system** built on CSS custom 
 2. Toggleable from the header at any time
 3. Persisted automatically for your next visit
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 🚀 Getting Started
 
@@ -203,7 +203,7 @@ python3 -m http.server 8000
 
 Then open `http://localhost:PORT` in your browser. 🎉
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 📁 Project Structure
 
@@ -314,7 +314,7 @@ CalcSuite/
 └── README.md
 ```
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 🧠 Advanced JS Concepts Showcased
 
@@ -328,7 +328,7 @@ CalcSuite/
 - 📋 **Clipboard API** — One-click "copy result" on every tool
 - ✅ **Inline form validation** — Clear, immediate feedback on invalid input
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 🗺️ Roadmap
 
@@ -338,7 +338,7 @@ CalcSuite/
 - [ ] Keyboard shortcuts (`Enter` to calculate, `Esc` to clear)
 - [ ] PWA support – installable, offline-ready via Service Worker
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 🤝🏼 Contributing
 
@@ -349,13 +349,13 @@ Contributions are always welcome!
 3. Commit your changes
 4. Push and open a Pull Request
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## ⭐ Support
 
 If you find CalcSuite useful, consider giving it a star ⭐
 
----
+<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 📜 License
 
