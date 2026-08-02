@@ -1,460 +1,362 @@
-# CalcSuite
+<div align="center">
 
-> **Every calculator and converter you need, in one modern place.**
+# 🧮 CalcSuite
 
-CalcSuite is a 50-tool calculator and converter suite built as a single-page application with
-**zero frameworks, zero dependencies and zero build step** — just semantic HTML5, CSS custom
-properties and vanilla ES modules.
+### Every calculator and converter you need, in one modern place.
 
-It is a deliberate answer to the two things that make sites like RapidTables painful to use:
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![License](https://img.shields.io/badge/License-MIT-2ea44f?style=flat-square)
 
-| Problem | CalcSuite's fix |
-| --- | --- |
-| **Fragmentation** — a separate page for "cm to inches", another for "inches to cm", another for "cm to feet"… | **One unified bidirectional tool per category.** Two dropdowns and a ⇄ swap button replace dozens of one-way pages. The Length converter alone covers 15 units — 210 directional pairs — on one screen. |
-| **Dated UI, ad clutter, "Calculate" buttons** | A modern dark/light interface, **live results as you type**, no ads, no page reloads, keyboard shortcuts and a mobile-first responsive layout. |
+**50 tools. Zero frameworks. One clean interface.**
 
----
-
-## Table of contents
-
-- [Quick start](#quick-start)
-- [Feature overview](#feature-overview)
-- [Complete tool list](#complete-tool-list)
-- [URI map](#uri-map)
-- [Architecture](#architecture)
-- [Data model & storage](#data-model--storage)
-- [Folder structure](#folder-structure)
-- [JavaScript techniques on show](#javascript-techniques-on-show)
-- [Accessibility](#accessibility)
-- [Browser support](#browser-support)
-- [Not yet implemented](#not-yet-implemented)
-- [Recommended next steps](#recommended-next-steps)
+</div>
 
 ---
 
-## Quick start
+## 📌 Table of Contents
 
-There is nothing to install and nothing to compile.
-
-```bash
-# 1. Get the files
-git clone https://github.com/TajkirHossen-14/calcsuite.git
-cd calcsuite
-
-# 2. Serve them over HTTP (ES modules are blocked on file://)
-python3 -m http.server 8080
-#   or: npx serve .
-#   or: php -S localhost:8080
-
-# 3. Open
-open http://localhost:8080
-```
-
-> **Why a server is required:** the app uses native ES modules and dynamic `import()`. Browsers
-> enforce CORS on module scripts, which the `file://` protocol cannot satisfy. Any static file
-> server works — including GitHub Pages, Netlify, Vercel or Cloudflare Pages with no configuration.
-
-### Deployment
-
-The project is 100% static, so deploying is a file copy. To publish this project from the editor,
-open the **Publish tab** and deploy in one click.
+- [📑 Overview](#-overview)
+- [💡 Why CalcSuite?](#-why-calcsuite)
+- [✨ Key Features](#-key-features)
+- [🛠️ Built With](#️-built-with)
+- [🧰 Full Tool List](#-full-tool-list)
+- [🌗 Theming](#-theming)
+- [🚀 Getting Started](#-getting-started)
+- [📁 Project Structure](#-project-structure)
+- [🧠 Advanced JS Concepts Showcased](#-advanced-js-concepts-showcased)
+- [🗺️ Roadmap](#️-roadmap)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
 
 ---
 
-## Feature overview
+## 📑 Overview
 
-### Core
-- **50 tools** across **12 categories** — 31 calculators and 19 converters.
-- **Live calculation.** Results update as you type; simple tools have no "Calculate" button at all.
-- **Unified bidirectional converters.** Pick any two units, swap them with ⇄, and see every other
-  unit at once in the "all units" list.
-- **Dark & light themes.** Persisted in `localStorage` and applied by an inline script *before first
-  paint*, so there is never a flash of the wrong theme.
-- **SPA routing without a framework.** A hash router with dynamic `import()` means the browser
-  downloads only the one module the current route needs.
-- **Fully responsive.** A single collapsible drawer holds the navigation, search, theme toggle and
-  GitHub link on small screens; the brand wordmark stays visible at every width.
-
-### Productivity
-- **Global search** (`/` to focus) with scored, ranked, debounced live results.
-- **Favorites** — star any tool; pinned tools surface on the home page and at `#/favorites`.
-- **Calculation history** — the last 60 results, deduplicated, at `#/history`.
-- **Recently used** tools on the home page.
-- **Copy result** button on every tool, plus a share button that copies a deep link.
-- **Keyboard shortcuts** — `/` focus search, `Esc` close, `Shift+D` toggle theme, and `g` followed
-  by `h`/`c`/`v`/`f`/`y` to jump to Home / Calculators / Converters / Favorites / History.
-- **PWA** — installable, with a cache-first service worker for offline use.
+**CalcSuite** is a static, framework-free web app that brings together **~50 calculators and converters** — everything from a Simple Calculator to a live Currency Converter — inside **one modern, unified interface**.
 
 ---
 
-## Complete tool list
+## 💡 Why CalcSuite?
 
-### Calculators (31)
-
-| Category | Tools |
-| --- | --- |
-| **Math (11)** | Simple Calculator · Scientific Calculator · Percentage · Average & Mean · Standard Deviation · Fraction · Ratio & Proportion · LCM & GCF · Quadratic Equation · Base Calculator · Random Number |
-| **Financial (5)** | Interest (simple & compound) · Loan / EMI with amortization · Discount · VAT / Sales Tax · Profit Margin |
-| **Health (3)** | BMI · BMR & TDEE · Ideal Weight |
-| **Date & Time (4)** | Age · Date Difference · Countdown Timer · Time Duration |
-| **Grade (3)** | GPA · Grade Calculator · Final Grade Needed |
-| **Electrical & Physics (3)** | Ohm's Law · Watt–Volt–Amp–Ohm power wheel · Power & Energy Cost |
-| **Everyday (2)** | Tip Calculator · Age in Days & Hours |
-
-### Converters (19)
-
-| Category | Tools |
-| --- | --- |
-| **Units (8)** | Length · Weight & Mass · Temperature · Volume · Area · Speed · Data Storage · **Custom Unit Converter** |
-| **Number Systems (5)** | Base Converter (bin/oct/dec/hex + custom radix) · ASCII & Text · Roman Numerals · Fraction ⟷ Decimal ⟷ Percent · Scientific Notation |
-| **Color (1)** | Color Converter — RGB / HEX / HSL / HSV / CMYK + WCAG contrast |
-| **Electrical (4)** | Power · Voltage · Frequency · Energy |
-| **Currency (1)** | Live Currency Converter |
+| | 😐 Typical Calculator Sites | ✅ CalcSuite |
+|---|---|---|
+| **Directions** | Separate page per direction (cm→ft *and* ft→cm) | 🔄 One tool, both directions, swap with a click |
+| **Feel** | Static, click "Calculate" to see anything | ⚡ Live results as you type |
+| **Design** | Ad-heavy, dated layouts | 🎨 Clean, modern, distinctive UI |
+| **Theme** | Fixed light theme | 🌗 Dark / Light mode, remembered on reload |
+| **Devices** | Desktop-first, cramped on mobile | 📱 Mobile-first, fully responsive |
+| **Stack** | Often bloated with dependencies | 🧩 Pure vanilla JS — no frameworks at all |
 
 ---
 
-## URI map
+## ✨ Key Features
 
-All routes are hash-based, so every tool is directly linkable and shareable.
+- ⚡ **Live calculations** — results update instantly as you type, no "Calculate" button needed
+- 🔄 **Unified bidirectional tools** — dropdown selectors + a swap (⇄) button handle every conversion direction
+- 🌗 **Dark / Light mode** — toggle with your preference saved via `localStorage`
+- 📱 **Fully responsive** — mobile-first design that scales cleanly to desktop
+- 🔍 **Live search** — instantly filter all 49 tools from the home page as you type
+- 📋 **Copy-to-clipboard** — one-click copy on every result, powered by the Clipboard API
+- 🧭 **Client-side routing** — smooth SPA feel via a lightweight hash-based router, with zero page reloads
+- 💾 **Persistent history & favorites** — pin your go-to tools and revisit past calculations
+- 🌍 **Live currency rates** — real exchange-rate data via `fetch` + `async/await`
+- 🧠 **Originally-written explanations** — every tool includes a short breakdown of the formula/logic behind it
 
-### Top-level
+---
 
-| Path | View |
-| --- | --- |
-| `#/` | Home — hero, recents, favorites, searchable tool grid grouped by category |
-| `#/calculators` | Index of all 31 calculators |
-| `#/converters` | Index of all 19 converters |
-| `#/favorites` | Your starred tools |
-| `#/history` | Your last 60 calculations |
-| `#/about` | About, tech notes and keyboard shortcuts |
-| *anything else* | 404 view with search and suggestions |
+## 🛠️ Built With
 
-### Tool routes
+| Layer | Technology |
+|---|---|
+| **Structure** | Semantic HTML5 |
+| **Styling** | CSS3 — custom properties for theming, Flexbox & Grid for layout |
+| **Logic** | Vanilla JavaScript (ES6+) — Classes, Modules, Closures |
+| **Persistence** | `localStorage` (theme, history, favorites) |
+| **Live Data** | `fetch` + `async/await` for currency exchange rates |
 
-Pattern: **`#/calculators/:id`** and **`#/converters/:id`**
+---
 
-<details>
-<summary><strong>All 50 tool routes</strong></summary>
+## 🧰 Full Tool List
 
-```
-#/calculators/simple-calculator        #/converters/length
-#/calculators/scientific-calculator    #/converters/weight
-#/calculators/percentage               #/converters/temperature
-#/calculators/average                  #/converters/volume
-#/calculators/standard-deviation       #/converters/area
-#/calculators/fraction                 #/converters/speed
-#/calculators/ratio                    #/converters/data-storage
-#/calculators/lcm-gcf                  #/converters/custom
-#/calculators/quadratic
-#/calculators/base-calculator          #/converters/base
-#/calculators/random-number            #/converters/ascii-text
-                                       #/converters/roman
-#/calculators/interest                 #/converters/fraction-decimal
-#/calculators/loan                     #/converters/scientific-notation
-#/calculators/discount
-#/calculators/vat                      #/converters/color
-#/calculators/profit-margin
-                                       #/converters/power
-#/calculators/bmi                      #/converters/voltage
-#/calculators/bmr                      #/converters/frequency
-#/calculators/ideal-weight             #/converters/energy
+### 🧮 Calculators (31 Tools)
 
-#/calculators/age                      #/converters/currency
-#/calculators/date-difference
-#/calculators/countdown
-#/calculators/time-duration
+### ➗ Math
+- Simple Calculator
+- Scientific Calculator
+- Percentage Calculator
+- Average Calculator (mean / median / mode)
+- Standard Deviation & Variance Calculator
+- Fraction Calculator
+- Ratio Calculator
+- LCM & GCF Calculator
+- Quadratic Equation Solver
+- Base Calculator (binary / hex / octal arithmetic)
+- Random Number Generator
 
-#/calculators/gpa
-#/calculators/grade-percentage
-#/calculators/final-grade
+### 💰 Financial
+- Simple & Compound Interest Calculator
+- Loan / EMI Calculator
+- Discount Calculator
+- VAT / Tax Calculator
+- Profit Margin Calculator
 
-#/calculators/ohms-law
-#/calculators/watt-volt-amp-ohm
-#/calculators/power-calculator
+### 🏋️ Health & Fitness
+- BMI Calculator
+- BMR / Daily Calorie Needs Calculator
+- Ideal Body Weight Calculator
 
-#/calculators/tip
-#/calculators/age-in-units
-```
+### 📅 Date & Time
+- Age Calculator
+- Date Difference Calculator
+- Countdown Calculator
+- Time Duration Calculator
+
+### 🎓 Grade / Education
+- GPA Calculator
+- Grade / Percentage Calculator
+- Final Grade Needed Calculator
+
+### 🔌 Electrical & Physics
+- Ohm's Law Calculator
+- Watt–Volt–Amp–Ohm Calculator
+- Power Calculator
+
+### 🧾 Everyday Utility
+- Tip Calculator
+- Age in Days/Weeks/Hours Calculator
+
+
+### 🔄 Converters (19 Tools)
+
+### 📏 Everyday Units
+- Length Converter
+- Weight/Mass Converter
+- Temperature Converter
+- Volume Converter
+- Area Converter
+- Speed Converter
+- Data Storage Converter
+- Custom Unit Converter
+
+### 🔢 Number System
+- Base Converter (Binary ⟷ Decimal ⟷ Octal ⟷ Hex)
+- ASCII ⟷ Text ⟷ Binary ⟷ Hex Converter
+- Roman Numeral Converter
+- Fraction ⟷ Decimal ⟷ Percentage Converter
+- Scientific Notation Converter
+
+### 🎨 Color
+- RGB ⟷ HEX ⟷ HSL ⟷ HSV ⟷ CMYK (with live swatch preview)
+
+### ⚡ Electrical / Electronics
+- Power Converter
+- Voltage Converter
+- Frequency Converter
+- Energy Converter
+
+### 💱 Currency
+- Live Currency Converter (real-time exchange rates)
+
 </details>
 
-### External
+---
 
-| Link | Target |
-| --- | --- |
-| GitHub (navbar + footer) | <https://github.com/TajkirHossen-14> |
+## 🌗 Theming
+
+CalcSuite ships with a full **dark and light theme system** built on CSS custom properties. The active theme is:
+
+1. Read from `localStorage` **before first paint** — no flash of the wrong theme
+2. Toggleable from the header at any time
+3. Persisted automatically for your next visit
 
 ---
 
-## Architecture
+## 🚀 Getting Started
 
-```
-index.html  ──▶  js/main.js
-                      │
-                      ├── ThemeManager      (dark/light + persistence)
-                      ├── HeaderSearch      (debounced scored search)
-                      ├── mobile drawer     (nav + search + theme + GitHub)
-                      ├── keyboard shortcuts
-                      └── Router
-                            │  matches '#/calculators/:id'
-                            ▼
-                       tools.js registry  ──▶  load: () => import('./calculators/…')
-                            │
-                            ▼
-                    core/toolPage.js  (shared page template)
-                            │  passes `ctx`
-                            ▼
-                     the tool module   { body, init, how }
+CalcSuite is 100% static — no build step required. Because it uses ES Modules and `fetch`, it needs to be served over `http(s)`, not opened directly as a `file://`.
+
+### Prerequisites
+- A modern browser (Chrome, Opera, Brave, Firefox, Edge)
+- Any lightweight local server (Node's `serve`, VS Code's Live Server, or Python's built-in server)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/TajkirHossen-14/CalcSuite.git
+
+# Move into the project folder
+cd CalcSuite
 ```
 
-### The tool-module contract
+### Running Locally
 
-Every one of the 50 tools is a module with the same tiny shape. It never writes layout chrome,
-copy buttons, breadcrumbs or favorite stars — the template does all of that.
+```bash
+# Option 1: using npx serve
+npx serve .
 
-```js
-export default {
-  resultLabel: 'Result',        // optional heading above the big number
-  noResult: false,              // optional: suppress the result panel entirely
-  how: `<p>…</p>`,              // originally-written explanation
-  body: (meta) => `<html…>`,    // markup for the input panel
-  init(root, ctx) {
-    ctx.live(() => {            // recompute on every input/change
-      ctx.setResult(value, subLine, { copy });
-    });
-    return cleanup;             // optional — called on navigation away
-  }
-};
+# Option 2: using Python
+python3 -m http.server 8000
 ```
 
-The `ctx` object handed to each module:
-
-| Member | Purpose |
-| --- | --- |
-| `setResult(value, sub, opts)` | Set the headline result, animate it, set the copy target, record history |
-| `setError(message)` | Inline error in the result slot, without recording history |
-| `clearResult()` | Reset the result panel |
-| `qs` / `qsa` | Scoped query helpers |
-| `live(handler, opts)` | Bind live recomputation, with optional debounce |
-| `tabs(onChange)` | Wire up a tab strip for multi-mode tools |
-| `meta`, `view`, `root` | Route metadata and DOM references |
-
-### The converter engine
-
-Phase 5's payoff: most converters contain **no conversion logic at all**. They declare a unit map
-and the shared `UnitConverter` class does the rest.
-
-```js
-// js/converters/units/area.js — an entire tool
-import { unitTool } from '../../core/unitTool.js';
-import { linearUnits } from '../../core/UnitConverter.js';
-
-export default unitTool({
-  units: linearUnits([
-    // [id, name, symbol, factor-to-base, group]
-    ['sqm',     'Square metre', 'm²',  1,          'Metric'],
-    ['sqft',    'Square foot',  'ft²', 0.09290304, 'Imperial'],
-    ['acre',    'Acre',         'ac',  4046.8564,  'Imperial'],
-    // …
-  ]),
-  defaults: ['sqm', 'sqft']
-});
-```
-
-Non-linear units drop in as closures instead of a factor — this is how Temperature, min/km pace,
-dBm and frequency-to-period work through the very same class:
-
-```js
-['celsius', 'Celsius', '°C', {
-  toBase:   (c) => c + 273.15,
-  fromBase: (k) => k - 273.15
-}]
-```
+Then open `http://localhost:PORT` in your browser. 🎉
 
 ---
 
-## Data model & storage
-
-**There is no server and no database.** All persistence is `localStorage`, namespaced under
-`calcsuite:` and wrapped in `js/utils/storage.js`, which falls back to an in-memory map when
-storage is unavailable (private browsing, disabled cookies).
-
-| Key | Type | Contents |
-| --- | --- | --- |
-| `calcsuite:theme` | `"dark" \| "light"` | Active theme; read by the pre-paint inline script |
-| `calcsuite:favorites` | `string[]` | Tool keys, e.g. `["converters/length", "calculators/bmi"]` |
-| `calcsuite:history` | `HistoryEntry[]` | Last 60 results, newest first, deduplicated |
-| `calcsuite:recents` | `string[]` | Last 8 visited tool keys |
-| `calcsuite:countdown` | `{ target, title }` | Saved countdown target |
-| `calcsuite:gpa:rows` | `Course[]` | Saved GPA course rows |
-| `calcsuite:custom-units` | `CustomConverter[]` | User-defined converters |
-| `calcsuite:cache:rates` | `{ value, savedAt }` | Exchange rates, 6-hour TTL |
-
-```ts
-type HistoryEntry = {
-  toolId: string;      // 'percentage'
-  group: string;       // 'calculators'
-  tool: string;        // 'Percentage Calculator'
-  path: string;        // '#/calculators/percentage'
-  expression: string;  // '15% of 200'
-  result: string;      // '30'
-  at: number;          // epoch ms
-};
-```
-
-### The one network call
-
-The Currency Converter is the only tool that touches the network. `CurrencyService` tries three
-free, key-less, CORS-enabled providers in order, caches the result for six hours, and falls back to
-a bundled offline rate table with a clear "rates may be stale" notice if all three fail.
-
----
-
-## Folder structure
+## 📁 Project Structure
 
 ```
-calcsuite/
-├── index.html                  # the single app shell
-├── manifest.json               # PWA manifest
-├── sw.js                       # cache-first service worker
-├── README.md
+CalcSuite/
 │
-├── Assets/                     # static media
-│   ├── Banner/                 # banner / hero images (add your own here)
-│   └── Favicon/
-│       └── favicon.svg
-│
+├── index.html
+│       
 ├── css/
-│   ├── variables.css           # design tokens + dark/light palettes
-│   ├── base.css                # reset, layout shell, header/footer, responsive
-│   ├── components.css          # buttons, panels, fields, tabs, cards, tables…
-│   └── themes.css              # theme-toggle animation, per-theme refinements
+│   ├── base.css
+│   ├── components.css
+│   ├── themes.css
+│   └── variables.css
 │
-└── js/
-    ├── main.js                 # boot, ThemeManager, search, shortcuts, routes
-    ├── router.js               # Router class, nav sync, progress bar
-    ├── tools.js                # registry of 12 categories / 50 tools
-    ├── utils/
-    │   ├── dom.js              # qs, on (delegation), debounce, clipboard, toast
-    │   ├── storage.js          # namespaced localStorage, favorites, history
-    │   ├── validators.js       # numeric/date/base validation + inline errors
-    │   └── format.js           # number, currency, date and relative formatting
-    ├── core/
-    │   ├── toolPage.js         # the shared tool page template + ctx API
-    │   ├── UnitConverter.js    # conversion engine + linearUnits helper
-    │   ├── unitTool.js         # unit map → complete bidirectional tool
-    │   └── Fraction.js         # exact rational arithmetic
-    ├── views/
-    │   ├── home.js             # hero + live-filtered tool grid
-    │   ├── category.js         # calculators / converters index
-    │   ├── library.js          # favorites, history, about, 404
-    │   └── shared.js           # card & grid markup, favorite-star wiring
-    ├── calculators/
-    │   ├── math/               # 11 modules
-    │   ├── financial/          # 5
-    │   ├── health/             # 3
-    │   ├── datetime/           # 4
-    │   ├── grade/              # 3
-    │   ├── electrical/         # 3
-    │   └── everyday/           # 2
-    └── converters/
-        ├── units/              # 8
-        ├── numberSystem/       # 5
-        ├── color/              # 1
-        ├── electrical/         # 4
-        └── currency/           # 1
+├── js/
+│   ├── calculators/
+│   │   ├── datetime/
+│   │   │   ├── age.js
+│   │   │   ├── countdown.js
+│   │   │   ├── dateDifference.js
+│   │   │   └── timeDuration.js
+│   │   ├── electrical/
+│   │   │   ├── ohmsLaw.js
+│   │   │   ├── power.js
+│   │   │   └── wattVoltAmpOhm.js
+│   │   ├── everyday/
+│   │   │   ├── ageInUnits.js
+│   │   │   └── tip.js
+│   │   ├── financial/
+│   │   │   ├── discount.js
+│   │   │   ├── interest.js
+│   │   │   ├── loan.js
+│   │   │   ├── profitMargin.js
+│   │   │   └── vat.js
+│   │   ├── grade/
+│   │   │   ├── finalGrade.js
+│   │   │   ├── gpa.js
+│   │   │   └── gradePercentage.js
+│   │   ├── health/
+│   │   │   ├── bmi.js
+│   │   │   ├── bmr.js
+│   │   │   └── idealWeight.js
+│   │   └── math/
+│   │       ├── average.js
+│   │       ├── baseCalculator.js
+│   │       ├── fraction.js
+│   │       ├── lcmGcf.js
+│   │       ├── percentage.js
+│   │       ├── quadratic.js
+│   │       ├── randomNumber.js
+│   │       ├── ratio.js
+│   │       ├── scientificCalculator.js
+│   │       ├── simpleCalculator.js
+│   │       └── standardDeviation.js
+│   ├── converters/
+│   │   ├── color/
+│   │   │   └── color.js
+│   │   ├── currency/
+│   │   │   └── currency.js
+│   │   ├── electrical/
+│   │   │   ├── energy.js
+│   │   │   ├── frequency.js
+│   │   │   ├── power.js
+│   │   │   └── voltage.js
+│   │   ├── numberSystem/
+│   │   │   ├── asciiText.js
+│   │   │   ├── base.js
+│   │   │   ├── fractionDecimal.js
+│   │   │   ├── roman.js
+│   │   │   └── scientificNotation.js
+│   │   └── units/
+│   │       ├── area.js
+│   │       ├── custom.js
+│   │       ├── dataStorage.js
+│   │       ├── length.js
+│   │       ├── speed.js
+│   │       ├── temperature.js
+│   │       ├── volume.js
+│   │       └── weight.js
+│   ├── core/
+│   │   ├── Fraction.js
+│   │   ├── toolPage.js
+│   │   ├── UnitConverter.js
+│   │   └── unitTool.js
+│   ├── utils/
+│   │   ├── dom.js
+│   │   ├── format.js
+│   │   ├── storage.js
+│   │   └── validators.js
+│   ├── views/
+│   │   ├── category.js
+│   │   ├── home.js
+│   │   ├── library.js
+│   │   └── shared.js
+│   ├── main.js
+│   ├── router.js
+│   └── tools.js
+│
+├── sw.js
+├── manifest.json
+│
+├── LICENSE
+│
+├── Assets/
+│   ├── Banner/
+│   └── Favicon/
+│
+└── README.md
 ```
 
 ---
 
-## JavaScript techniques on show
+## 🧠 Advanced JS Concepts Showcased
 
-| Technique | Where to look |
-| --- | --- |
-| **ES6 classes & inheritance** | `Calculator` → `ScientificCalculator extends Calculator`; also `Color`, `Fraction`, `UnitConverter`, `CurrencyService`, `Router`, `ThemeManager` |
-| **ES modules + dynamic `import()`** | `tools.js` registry; the router imports only the active route's module |
-| **Closures & higher-order functions** | `unitTool()` factory, `grader(scale)` in the grade calculator, `toBase`/`fromBase` unit overrides, `debounce` |
-| **Destructuring, template literals, spread/rest** | Throughout — e.g. `const { years, months, days } = calendarAge(a, b)` |
-| **Event delegation** | `on(root, 'click', '.js-remove', handler)` — one listener serves rows added later |
-| **async/await + Fetch** | `CurrencyService.fetchRates()` with sequential provider fallback |
-| **localStorage** | `utils/storage.js` with in-memory fallback and TTL cache |
-| **Debounce & rAF throttle** | Search input, history recording, expensive recomputes |
-| **Clipboard API** | `copyToClipboard()` with an `execCommand` fallback |
-| **BigInt** | Base Converter and Base Calculator — arbitrary-precision radix arithmetic |
-| **`crypto.getRandomValues`** | Random Number generator's cryptographic mode |
-| **Timer lifecycle management** | Countdown Timer and Age in Days return a cleanup function the router calls on navigation away — no leaked intervals |
-| **Service Worker** | `sw.js` — cache-first shell, network passthrough for rate APIs |
-
-### Algorithms worth a look
-
-- **Stern–Brocot / continued fractions** — `Fraction.fromDecimal()` recovers `22/7` from `3.142857…`
-- **Euclidean GCD** — fraction reduction and the LCM/GCF tool
-- **Calendar borrowing** — leap-year-safe age arithmetic in `datetime/age.js`
-- **Fisher–Yates shuffle** — unique random number sets
-- **WCAG relative luminance** — contrast-ratio grading in the Color converter
+- 🧱 **ES6+ Classes** — each tool encapsulates its own state and logic
+- 📦 **ES Modules** — one `import`/`export` module per tool, dynamically loaded per route
+- 🔁 **Closures & higher-order functions** — reusable calculation logic (e.g. the generic `UnitConverter` class powers 6+ different converters)
+- 🎯 **Event delegation** — powers the router and dynamic tool switching
+- ⏳ **Debouncing** — smooth, efficient live-input calculations
+- 🌐 **Async/Await + Fetch API** — real-time currency exchange rates
+- 💾 **LocalStorage** — theme, history, and favorites persistence
+- 📋 **Clipboard API** — one-click "copy result" on every tool
+- ✅ **Inline form validation** — clear, immediate feedback on invalid input
 
 ---
 
-## Accessibility
+## 🗺️ Roadmap
 
-- Semantic landmarks (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`)
-- Skip-to-content link
-- `aria-live="polite"` result panels announce updates without stealing focus
-- `aria-expanded` / `aria-controls` on the drawer and search, `aria-pressed` on the favorite star
-- Every input has an associated `<label>`; icon-only buttons have `aria-label`
-- Visible focus rings; full keyboard operation
-- `prefers-reduced-motion` disables all animation
-- Colour is never the sole carrier of meaning — badges pair colour with text
+- [ ] Custom Unit Converter (user-defined conversion factors)
+- [ ] Calculation history panel
+- [ ] Favorite / pin tools to the home page
+- [ ] Keyboard shortcuts (`Enter` to calculate, `Esc` to clear)
+- [ ] PWA support — installable, offline-ready via Service Worker
 
 ---
 
-## Browser support
+## 🤝🏼 Contributing
 
-Requires native ES modules, dynamic `import()`, CSS custom properties and `BigInt`:
-**Chrome/Edge 79+, Firefox 68+, Safari 14+**. No transpilation, no polyfills.
+Contributions are always welcome!
 
----
-
-## Not yet implemented
-
-Deliberately out of scope, or left for a future pass:
-
-- **No test suite.** Pure functions are exported specifically so they can be unit-tested
-  (`requiredScore`, `calendarAge`, `businessDays`, `parseDuration`, `solveWheel`, `engineering`,
-  `Fraction`, `UnitConverter`), but no runner is wired up.
-- **No server-side anything** — no accounts, no cross-device sync, no saved worksheets. History and
-  favorites are per-browser.
-- **Public holidays** are not modelled in the business-day count (weekends only).
-- **Currency rates are indicative**, not dealing rates, and the offline fallback table is a seed
-  snapshot.
-- **No graphing.** The quadratic solver reports roots and vertex but does not plot the parabola, and
-  loan amortization is a table rather than a chart.
-- **No i18n.** UI copy is English-only; numbers and dates do follow the visitor's locale via
-  `Intl`.
-- **Scientific Calculator** has no expression history tape or user-defined variables.
-- **Service worker** caches tool modules lazily on first visit, so the very first offline load only
-  guarantees the shell plus previously visited tools.
-
-## Recommended next steps
-
-1. **Add a test runner.** Vitest or a plain browser test page against the exported pure functions
-   would cover most of the risk surface with very little setup.
-2. **Chart the numeric tools** — a small SVG plotter (no library needed) for the quadratic parabola,
-   loan balance curve and BMI/BMR trends.
-3. **Precache tool modules on install** so the whole suite works offline after one visit.
-4. **Batch/CSV mode** for converters — paste a column of values, convert them all, copy back.
-5. **URL-encoded state**, e.g. `#/converters/length?from=cm&to=in&v=180`, to make results shareable
-   with their inputs intact.
-6. **Expand the Custom Unit Converter** into user-defined *formulas*, not just factor + offset.
-7. **Localisation** of UI strings, starting with the tool names and descriptions in `tools.js`,
-   which is already the single source of truth for the site map.
-8. **Holiday calendars** for business-day arithmetic, region-selectable.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/Amazing-Tool`)
+3. Commit your changes
+4. Push and open a Pull Request
 
 ---
 
-## Credits
+## ⭐ Support
 
-Built by [TajkirHossen-14](https://github.com/TajkirHossen-14).
+If you find CalcSuite useful, consider giving it a star ⭐
 
-Fonts: Space Grotesk, Inter and JetBrains Mono (Google Fonts). Icons: Font Awesome 6 Free.
-Everything else — layout, theming, routing, state and all 50 tools — is hand-written vanilla
-HTML, CSS and JavaScript.
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
