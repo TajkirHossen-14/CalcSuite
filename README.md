@@ -26,9 +26,8 @@
 - [🚀 Getting Started](#-getting-started)
 - [📁 Project Structure](#-project-structure)
 - [🧠 Advanced JS Concepts Showcased](#-advanced-js-concepts-showcased)
-- [🗺️ Roadmap](#️-roadmap)
 - [🤝🏼 Contributing](#-contributing)
-- [📄 License](#-license)
+- [📜 License](#-license)
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
