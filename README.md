@@ -330,15 +330,6 @@ CalcSuite/
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
-## 🗺️ Roadmap
-
-- [ ] Custom Unit Converter (user-defined conversion factors)
-- [ ] Calculation history panel
-- [ ] Favorite / pin tools to the home page
-- [ ] Keyboard shortcuts (`Enter` to calculate, `Esc` to clear)
-- [ ] PWA support – installable, offline-ready via Service Worker
-
-<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 🤝🏼 Contributing
 
