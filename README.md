@@ -1,7 +1,7 @@
 <div align="center">
 
 <p align="center">
-  <img src="Assets\Banner\CalcSuite_Banner.png" alt="CalcSuite Banner" width="100%">
+  <img src="Assets\Banner\CalcSuite_Banner_2.png" alt="CalcSuite Banner" width="100%">
 </p>
 
 # 🧮 [CalcSuite](https://calc-suite-cyan.vercel.app)
