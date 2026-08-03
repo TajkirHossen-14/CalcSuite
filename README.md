@@ -21,7 +21,6 @@
 
 ## 📌 Table of Contents
 
-<!--
 - [📑 Overview](#-overview)
 - [💡 Why CalcSuite?](#-why-calcsuite)
 - [✨ Key Features](#-key-features)
@@ -33,21 +32,6 @@
 - [🧠 Advanced JS Concepts Showcased](#-advanced-js-concepts-showcased)
 - [🤝🏼 Contributing](#-contributing)
 - [📜 License](#-license) 
-
--->
-
-
-- <a href="#overview">📑 Overview</a><br>
-- <a href="#why-calcsuite">💡 Why CalcSuite?</a><br>
-- <a href="#key-features">✨ Key Features</a><br>
-- <a href="#built-with">🛠️ Built With</a><br>
-- <a href="#full-tool-list">🧰 Full Tool List</a><br>
-- <a href="#theming">🌗 Theming</a><br>
-- <a href="#getting-started">🚀 Getting Started</a><br>
-- <a href="#project-structure">📁 Project Structure</a><br>
-- <a href="#advanced-js-concepts-showcased">🧠 Advanced JS Concepts Showcased</a><br>
-- <a href="#contributing">🤝🏼 Contributing</a><br>
-- <a href="#license">📜 License</a>
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
