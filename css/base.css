@@ -334,6 +334,7 @@ code, kbd, samp, .mono { font-family: var(--font-mono); font-size: .92em; }
     order: -1;
     width: 100%;
     margin-bottom: .55rem;
+    padding-top: .6rem;
     padding-bottom: .6rem;
     border-bottom: 1px dashed var(--border);
   }
