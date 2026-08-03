@@ -368,7 +368,7 @@ code, kbd, samp, .mono { font-family: var(--font-mono); font-size: .92em; }
 
 /* The wordmark stays visible at every width, per design */
 @media (max-width: 420px) {
-  .brand { font-size: 1.18rem; }
+  .brand { font-size: 1.4rem; }
   .brand-text { display: inline; }
 }
 
