@@ -1,5 +1,9 @@
 <div align="center">
 
+<p align="center">
+  <img src="Assets\Banner\CalcSuite_Banner.png" alt="CalcSuite Banner" width="100%">
+</p>
+
 # 🧮 CalcSuite
 
 ### Every calculator and converter you need, in one modern place.
