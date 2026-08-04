@@ -56,16 +56,16 @@
 
 ## ✨ Key Features
 
-- ⚡ **Live Calculations** — results update instantly as you type, no "Calculate" button needed
-- 🔄 **Unified Bidirectional Tools** — dropdown selectors + a swap (⇄) button handle every conversion direction
-- 🌗 **Dark / Light Mode** — toggle with your preference saved via `localStorage`
-- 📱 **Fully Responsive** — mobile-first design that scales cleanly to desktop
-- 🔍 **Live Search** — instantly filter all 49 tools from the home page as you type
-- 📋 **Copy-to-clipboard** — one-click copy on every result, powered by the Clipboard API
-- 🧭 **Client-side Routing** — smooth SPA feel via a lightweight hash-based router, with zero page reloads
-- 💾 **Persistent History & Favorites** — pin your go-to tools and revisit past calculations
-- 🌍 **Live Currency Rates** — real exchange-rate data via `fetch` + `async/await`
-- 🧠 **Originally-written Explanations** — every tool includes a short breakdown of the formula/logic behind it
+- ⚡ **Live Calculations** — Results update instantly as you type, no "Calculate" button needed
+- 🔄 **Unified Bidirectional Tools** — Dropdown selectors + a swap (⇄) button handle every conversion direction
+- 🌗 **Dark / Light Mode** — Toggle with your preference saved via `localStorage`
+- 📱 **Fully Responsive** — Mobile-first design that scales cleanly to desktop
+- 🔍 **Live Search** — Instantly filter all 49 tools from the home page as you type
+- 📋 **Copy-to-clipboard** — One-click copy on every result, powered by the Clipboard API
+- 🧭 **Client-side Routing** — Smooth SPA feel via a lightweight hash-based router, with zero page reloads
+- 💾 **Persistent History & Favorites** — Pin your go-to tools and revisit past calculations
+- 🌍 **Live Currency Rates** — Real exchange-rate data via `fetch` + `async/await`
+- 🧠 **Originally-written Explanations** — Every tool includes a short breakdown of the formula/logic behind it
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
