@@ -32,6 +32,7 @@
 - [🧠 Advanced JS Concepts Showcased](#-advanced-js-concepts-showcased)
 - [🤝🏼 Contributing](#-contributing)
 - [📜 License](#-license) 
+- [⭐ Support](#-support)
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
@@ -345,12 +346,12 @@ Contributions are always welcome!
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
-## ⭐ Support
-
-If you find CalcSuite useful, consider giving it a star ⭐
-
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## ⭐ Support
+
+If you find CalcSuite useful, consider giving it a star ⭐
