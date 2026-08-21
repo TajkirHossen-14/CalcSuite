@@ -1,7 +1,7 @@
 {
   "name": "CalcSuite — Calculators & Converters",
   "short_name": "CalcSuite",
-  "description": "Every calculator and converter you need, in one modern place. 50 unified, live tools that work offline.",
+  "description": "Every calculator and converter you need, in one modern place. 51 unified, live tools that work offline.",
   "start_url": "./index.html#/",
   "scope": "./",
   "display": "standalone",
