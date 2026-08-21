@@ -124,15 +124,16 @@ export const CATEGORIES = [
   {
     id: 'number-system',
     group: 'converters',
-    name: 'Number Systems',
+    name: 'Number Systems & Encoding',
     icon: 'fa-solid fa-code',
-    blurb: 'Bases, text encodings and notation.',
+    blurb: 'Bases, text encodings, notation and signalling codes.',
     tools: [
       { id: 'base', name: 'Base Converter', icon: 'fa-solid fa-code', desc: 'Binary ⟷ decimal ⟷ octal ⟷ hex, all four shown at once.', keywords: 'binary decimal octal hexadecimal radix bits', load: () => import('./converters/numberSystem/base.js') },
       { id: 'ascii-text', name: 'Text ⟷ ASCII ⟷ Binary ⟷ Hex', icon: 'fa-solid fa-font', desc: 'Encode or decode text as ASCII codes, binary, hex or Base64.', keywords: 'ascii binary hex base64 encode decode charcode', load: () => import('./converters/numberSystem/asciiText.js') },
       { id: 'roman', name: 'Roman Numeral Converter', icon: 'fa-solid fa-monument', desc: 'Numbers to Roman numerals and back, 1–3,999,999.', keywords: 'roman numerals mcmxciv latin numbers', load: () => import('./converters/numberSystem/roman.js') },
       { id: 'fraction-decimal', name: 'Fraction ⟷ Decimal ⟷ %', icon: 'fa-solid fa-percent', desc: 'Any of the three updates the other two, live.', keywords: 'fraction decimal percentage repeating convert', load: () => import('./converters/numberSystem/fractionDecimal.js') },
-      { id: 'scientific-notation', name: 'Scientific Notation', icon: 'fa-solid fa-atom', desc: 'Standard form, E-notation, engineering notation and back.', keywords: 'exponential e notation engineering mantissa', load: () => import('./converters/numberSystem/scientificNotation.js') }
+      { id: 'scientific-notation', name: 'Scientific Notation', icon: 'fa-solid fa-atom', desc: 'Standard form, E-notation, engineering notation and back.', keywords: 'exponential e notation engineering mantissa', load: () => import('./converters/numberSystem/scientificNotation.js') },
+      { id: 'morse', name: 'Text ⟷ Morse Code', icon: 'fa-solid fa-tower-cell', desc: 'Encode text to Morse and decode it back, with audio playback.', keywords: 'morse code dots dashes telegraph sos beep signal', load: () => import('./converters/numberSystem/morse.js') }
     ]
   },
   {
@@ -194,17 +195,14 @@ export const countTools = (group) => TOOLS.filter((t) => !group || t.group === g
  * Fuzzy-ish search: scores name matches above description/keyword matches.
  * Pure function + closure over the query — used by header search and home grid.
  */
-export function searchTools(query, limit = Infinity) 
-{
+export function searchTools(query, limit = Infinity) {
   const q = query.trim().toLowerCase();
   if (!q) return [];
   const terms = q.split(/\s+/);
   return TOOLS
-    .map((tool) => 
-    {
+    .map((tool) => {
       let score = 0;
-      for (const term of terms) 
-      {
+      for (const term of terms) {
         if (!tool.searchText.includes(term)) return null;
         if (tool.name.toLowerCase().startsWith(term)) score += 6;
         else if (tool.name.toLowerCase().includes(term)) score += 4;
