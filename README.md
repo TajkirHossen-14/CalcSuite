@@ -13,7 +13,7 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 ![License](https://img.shields.io/badge/License-MIT-2ea44f?style=flat-square)
 
-**50 tools. Zero frameworks. One clean interface.**
+**51 tools. Zero frameworks. One clean interface.**
 
 </div>
 
@@ -144,12 +144,13 @@
 - Data Storage Converter
 - Custom Unit Converter
 
-#### 🔢 Number System
+#### 🔢 Number Systems & Encoding
 - Base Converter (Binary ⟷ Decimal ⟷ Octal ⟷ Hex)
 - ASCII ⟷ Text ⟷ Binary ⟷ Hex Converter
 - Roman Numeral Converter
 - Fraction ⟷ Decimal ⟷ Percentage Converter
 - Scientific Notation Converter
+- Text ⟷ Morse Code
 
 #### 🎨 Color
 - RGB ⟷ HEX ⟷ HSL ⟷ HSV ⟷ CMYK (with live swatch preview)
