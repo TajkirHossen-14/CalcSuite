@@ -1,7 +1,7 @@
 /**
  * toolPage.js — the shared tool page template.
  *
- * Every one of the 50 tool modules exports:
+ * Every one of the 51 tool modules exports:
  *   {
  *     body:  string | (meta) => string     // markup for the input panel
  *     init:  (root, ctx) => void|cleanup   // wire up behaviour
@@ -18,7 +18,8 @@ import { createEl, qs, qsa, on, escapeHTML, debounce } from '../utils/dom.js';
 import { isFavorite, toggleFavorite, pushHistory, pushRecent } from '../utils/storage.js';
 import { TOOLS } from '../tools.js';
 
-export function renderToolPage(mod, meta) {
+export function renderToolPage(mod, meta) 
+{
   pushRecent(`${meta.group}/${meta.id}`);
 
   const bodyHTML = typeof mod.body === 'function' ? mod.body(meta) : (mod.body || '');
