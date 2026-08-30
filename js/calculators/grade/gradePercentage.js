@@ -7,8 +7,18 @@ import { qs, qsa, on } from '../../utils/dom.js';
 import { fmt, fmtFixed } from '../../utils/format.js';
 import { isNumber } from '../../utils/validators.js';
 
-/** Grading scales as [minimum percentage, letter] pairs, highest first. */
+/**
+ * Grading scales as [minimum percentage, letter, gradePoint?] tuples, highest
+ * first. The third element is optional: scales that are also grade-point scales
+ * expose it so the tool can show the matching GPA point.
+ */
 export const SCALES = {
+  ugc: {
+    name: 'Bangladesh / UGC 4.00',
+    bands: [[80, 'A+', 4.00], [75, 'A', 3.75], [70, 'A-', 3.50], [65, 'B+', 3.25],
+      [60, 'B', 3.00], [55, 'B-', 2.75], [50, 'C+', 2.50], [45, 'C', 2.25],
+      [40, 'D', 2.00], [0, 'F', 0.00]]
+  },
   'us-plus': {
     name: 'US letter with +/−',
     bands: [[97, 'A+'], [93, 'A'], [90, 'A−'], [87, 'B+'], [83, 'B'], [80, 'B−'],
@@ -30,11 +40,26 @@ export const SCALES = {
   }
 };
 
+/** The scale selected when the tool first opens — also the <select> fallback. */
+export const DEFAULT_SCALE = 'ugc';
+
+/** Resolves the matching band, falling back to the lowest (fail) band. */
+const bandFor = (scaleId, percent) => {
+  const { bands } = SCALES[scaleId] || SCALES[DEFAULT_SCALE];
+  return bands.find(([min]) => percent >= min) || bands[bands.length - 1];
+};
+
 /** Higher-order lookup: returns a function that grades a percentage on one scale. */
-export const grader = (scaleId) => (percent) => {
-  const { bands } = SCALES[scaleId] || SCALES['us-plus'];
-  const hit = bands.find(([min]) => percent >= min);
-  return hit ? hit[1] : bands[bands.length - 1][1];
+export const grader = (scaleId) => (percent) => bandFor(scaleId, percent)[1];
+
+/**
+ * Grade point for a percentage, or null on scales that have no point mapping
+ * (UK honours, plain US letters). Lets the caller show the tile only when the
+ * number would actually mean something.
+ */
+export const pointer = (scaleId) => (percent) => {
+  const points = bandFor(scaleId, percent)[2];
+  return typeof points === 'number' ? points : null;
 };
 
 const assignmentRow = (name = '', score = '', total = 100, weight = '') => `
@@ -63,10 +88,27 @@ export default {
     actually entered, the figures stay meaningful even when your weights do not add up to exactly
     100 — useful mid-semester when some components have not been graded yet.</p>
     <h4>About the letter scales</h4>
-    <p>Letter boundaries are institutional conventions, not mathematics. The four scales offered
-    here cover the common US cut-offs (with and without plus/minus), UK honours classifications and
-    the standard 4.0 grade-point mapping. Always check your own syllabus: some departments round
-    89.5 up to an A−, others do not round at all.</p>`,
+    <p>Letter boundaries are institutional conventions, not mathematics. The five scales offered
+    here cover the Bangladesh / UGC 4.00 scale (the default), the common US cut-offs with and
+    without plus/minus, UK honours classifications and the standard US 4.0 grade-point mapping.
+    Always check your own syllabus: some departments round 89.5 up to an A−, others do not round
+    at all.</p>
+    <h4>The Bangladesh / UGC scale</h4>
+    <p>Used by Bangladeshi universities and widely across South Asia, this scale moves in quarter
+    points and has <strong>no C− and no D+</strong> — below C the next step is D, and anything under
+    40% is F. When it is selected the tool also reports the matching grade point, which you can feed
+    straight into the <a href="#/calculators/gpa">GPA Calculator</a>.</p>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Marks</th><th>Letter</th><th class="num">Grade point</th></tr></thead>
+        <tbody>
+          ${SCALES.ugc.bands.map(([min, letter, points], i, all) => {
+            const upper = i === 0 ? 100 : all[i - 1][0] - 1;
+            return `<tr><td class="mono">${min === 0 ? 'below 40' : `${min}–${upper}`}</td><td><strong>${letter}</strong></td><td class="num mono">${points.toFixed(2)}</td></tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>`,
 
   body: () => `
     <div class="tabs" role="tablist">
@@ -102,7 +144,7 @@ export default {
     <div class="field">
       <label for="scale">Grading scale</label>
       <select id="scale">
-        ${Object.entries(SCALES).map(([id, s], i) => `<option value="${id}"${i === 0 ? ' selected' : ''}>${s.name}</option>`).join('')}
+        ${Object.entries(SCALES).map(([id, s]) => `<option value="${id}"${id === DEFAULT_SCALE ? ' selected' : ''}>${s.name}</option>`).join('')}
       </select>
     </div>
     <div class="stat-grid mt-4" id="grade-stats"></div>`,
@@ -112,7 +154,9 @@ export default {
     const stats = qs('#grade-stats', root);
 
     const calc = () => {
-      const toLetter = grader(qs('#scale', root).value);
+      const scaleId = qs('#scale', root).value;
+      const toLetter = grader(scaleId);
+      const toPoint = pointer(scaleId);
       let percent = NaN;
       let detail = '';
       let tiles = [];
@@ -165,6 +209,10 @@ export default {
           ['Assignments counted', fmt(counted)]
         ];
       }
+
+      // Only scales with a point mapping get the extra tile.
+      const point = toPoint(percent);
+      if (point !== null) tiles.splice(2, 0, ['Grade point', point.toFixed(2)]);
 
       ctx.setResult(`${fmtFixed(percent, 2)}%  ·  ${toLetter(percent)}`, detail, { copy: `${percent.toFixed(2)}% (${toLetter(percent)})` });
       stats.innerHTML = tiles.map(([l, v]) => `<div class="stat"><div class="stat-label">${l}</div><div class="stat-value">${v}</div></div>`).join('');
