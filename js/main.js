@@ -10,6 +10,7 @@ import * as storage from './utils/storage.js';
 import { renderHome } from './views/home.js';
 import { renderCategoryIndex } from './views/category.js';
 import { renderFavorites, renderHistory, renderAbout, renderNotFound } from './views/library.js';
+import { renderFAQ } from './views/faq.js';
 import { renderToolPage } from './core/toolPage.js';
 
 /* ------------------------------------------------------------------ */
@@ -214,6 +215,7 @@ router
   .add('/favorites', () => renderFavorites())
   .add('/history', () => renderHistory())
   .add('/about', () => renderAbout())
+  .add('/faq', () => renderFAQ())
   .add('/calculators/:id', ({ id }) => toolRoute('calculators', id))
   .add('/converters/:id', ({ id }) => toolRoute('converters', id))
   .notFound(({ path }) => renderNotFound(path));
