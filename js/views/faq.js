@@ -19,7 +19,7 @@ const convCount = TOOLS.filter((t) => t.group === 'converters').length;
 const SECTIONS = [
   {
     id: 'basics',
-    title: 'Getting started',
+    title: 'Getting Started',
     icon: 'fa-solid fa-circle-play',
     items: [
       {
@@ -63,7 +63,7 @@ const SECTIONS = [
   },
   {
     id: 'features',
-    title: 'Favorites, history and themes',
+    title: 'Favorites, History and Themes',
     icon: 'fa-solid fa-star',
     items: [
       {
@@ -95,7 +95,7 @@ const SECTIONS = [
   },
   {
     id: 'privacy',
-    title: 'Privacy and data',
+    title: 'Privacy and Data',
     icon: 'fa-solid fa-shield-halved',
     items: [
       {
@@ -119,7 +119,7 @@ const SECTIONS = [
   },
   {
     id: 'accuracy',
-    title: 'Accuracy and methods',
+    title: 'Accuracy and Methods',
     icon: 'fa-solid fa-scale-balanced',
     items: [
       {
@@ -217,7 +217,7 @@ export function renderFAQ() {
 
     <header class="tool-head">
       <div class="tool-head-main">
-        <h1>Frequently asked questions</h1>
+        <h1>Frequently Asked Questions</h1>
         <p class="tool-desc">${TOTAL} answers about how CalcSuite works, what it stores and how far
         you should trust its numbers.</p>
       </div>
