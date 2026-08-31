@@ -38,7 +38,7 @@
 
 ## 📑 Overview
 
-**CalcSuite** is a static, framework-free web app that brings together **~50 calculators and converters** – everything from a Simple Calculator to a live Currency Converter – inside **one modern, unified interface**.
+**CalcSuite** is a static, framework-free web app that brings together **~51 calculators and converters** – everything from a Simple Calculator to a live Currency Converter – inside **one modern, unified interface**.
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
