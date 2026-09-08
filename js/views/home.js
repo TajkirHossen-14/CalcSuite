@@ -105,6 +105,6 @@ export function renderHome() {
   });
 
   wireFavStars(view);
-  document.title = 'CalcSuite — Every calculator and converter you need';
+  document.title = 'CalcSuite – Every Calculator & Converter You Need';
   return view;
 }
