@@ -133,7 +133,8 @@ export const CATEGORIES = [
       { id: 'roman', name: 'Roman Numeral Converter', icon: 'fa-solid fa-monument', desc: 'Numbers to Roman numerals and back, 1–3,999,999.', keywords: 'roman numerals mcmxciv latin numbers', load: () => import('./converters/numberSystem/roman.js') },
       { id: 'fraction-decimal', name: 'Fraction ⟷ Decimal ⟷ %', icon: 'fa-solid fa-percent', desc: 'Any of the three updates the other two, live.', keywords: 'fraction decimal percentage repeating convert', load: () => import('./converters/numberSystem/fractionDecimal.js') },
       { id: 'scientific-notation', name: 'Scientific Notation', icon: 'fa-solid fa-atom', desc: 'Standard form, E-notation, engineering notation and back.', keywords: 'exponential e notation engineering mantissa', load: () => import('./converters/numberSystem/scientificNotation.js') },
-      { id: 'morse', name: 'Text ⟷ Morse Code', icon: 'fa-solid fa-tower-cell', desc: 'Encode text to Morse and decode it back, with audio playback.', keywords: 'morse code dots dashes telegraph sos beep signal', load: () => import('./converters/numberSystem/morse.js') }
+      { id: 'morse', name: 'Text ⟷ Morse Code', icon: 'fa-solid fa-tower-cell', desc: 'Encode text to Morse and decode it back, with audio playback.', keywords: 'morse code dots dashes telegraph sos beep signal', load: () => import('./converters/numberSystem/morse.js') },
+      { id: 'cipher', name: 'Text ⟷ Cipher', icon: 'fa-solid fa-user-secret', desc: 'Caesar, ROT13, Atbash, Vigenère and A1Z26 — encode, decode or crack.', keywords: 'cipher caesar rot13 atbash vigenere a1z26 encrypt decrypt secret code crack', load: () => import('./converters/numberSystem/cipher.js') }
     ]
   },
   {
@@ -190,6 +191,13 @@ export const getTool = (group, id) => BY_KEY.get(`${group}/${id}`) || null;
 export const getToolByKey = (key) => BY_KEY.get(key) || null;
 export const getCategories = (group) => CATEGORIES.filter((c) => c.group === group);
 export const countTools = (group) => TOOLS.filter((t) => !group || t.group === group).length;
+
+/**
+ * Marketing copy count, rounded down to the nearest ten with a "+".
+ * Derived rather than hardcoded so adding a tool can never make the headline
+ * copy wrong, and so the figure stays a promise the suite always keeps.
+ */
+export const TOOL_COUNT_LABEL = `${Math.floor(TOOLS.length / 10) * 10}+`;
 
 /**
  * Fuzzy-ish search: scores name matches above description/keyword matches.
