@@ -1,7 +1,7 @@
 <div align="center">
 
 <p align="center">
-  <img src="Assets\Banner\CalcSuite_Banner_4.png" alt="CalcSuite Banner" width="100%">
+  <img src="Assets/Banner/CalcSuite_Banner_4.png" alt="CalcSuite Banner" width="100%">
 </p>
 
 # 🧮 [CalcSuite](https://calc-suite-cyan.vercel.app)
@@ -13,7 +13,7 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 ![License](https://img.shields.io/badge/License-MIT-2ea44f?style=flat-square)
 
-**51 tools. Zero frameworks. One clean interface.**
+**50+ tools. Zero frameworks. One clean interface.**
 
 </div>
 
@@ -38,7 +38,7 @@
 
 ## 📑 Overview
 
-**CalcSuite** is a static, framework-free web app that brings together **~51 calculators and converters** – everything from a Simple Calculator to a live Currency Converter – inside **one modern, unified interface**.
+**CalcSuite** is a static, framework-free web app that brings together **50+ calculators and converters** – everything from a Simple Calculator to a live Currency Converter – inside **one modern, unified interface**.
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
@@ -61,12 +61,15 @@
 - 🔄 **Unified Bidirectional Tools** — Dropdown selectors + a swap (⇄) button handle every conversion direction
 - 🌗 **Dark / Light Mode** — Toggle with your preference saved via `localStorage`
 - 📱 **Fully Responsive** — Mobile-first design that scales cleanly to desktop
-- 🔍 **Live Search** — Instantly filter all 49 tools from the home page as you type
+- 🔍 **Live Search** — Instantly filter every tool from the home page as you type
 - 📋 **Copy-to-clipboard** — One-click copy on every result, powered by the Clipboard API
 - 🧭 **Client-side Routing** — Smooth SPA feel via a lightweight hash-based router, with zero page reloads
 - 💾 **Persistent History & Favorites** — Pin your go-to tools and revisit past calculations
 - 🌍 **Live Currency Rates** — Real exchange-rate data via `fetch` + `async/await`
 - 🧠 **Originally-written Explanations** — Every tool includes a short breakdown of the formula/logic behind it
+- ❓ **Built-in FAQ** — 21 questions in 5 sections at `#/faq`, with a live filter and expand/collapse all
+- ⌨️ **Keyboard Shortcuts** — `/` to search, `Esc` to close, `Shift + D` to flip the theme, and `g` then `h`/`c`/`v`/`f`/`y` to jump to Home / Calculators / Converters / Favorites / History
+- 📦 **Installable PWA** — A cache-first service worker means CalcSuite works fully offline after the first visit
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
@@ -79,6 +82,8 @@
 | **Logic** | Vanilla JavaScript (ES6+) — Classes, Modules, Closures |
 | **Persistence** | `localStorage` (theme, history, favorites) |
 | **Live Data** | `fetch` + `async/await` for currency exchange rates |
+| **Audio** | Web Audio API — live Morse code playback, no sound files |
+| **Offline** | Service worker + web-app manifest (installable PWA) |
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
@@ -132,7 +137,7 @@
 - Age in Days/Weeks/Hours Calculator
 
 
-### 🔄 Converters (19 Tools)
+### 🔄 Converters (21 Tools)
 
 #### 📏 Everyday Units
 - Length Converter
@@ -151,6 +156,7 @@
 - Fraction ⟷ Decimal ⟷ Percentage Converter
 - Scientific Notation Converter
 - Text ⟷ Morse Code
+- Text ⟷ Cipher
 
 #### 🎨 Color
 - RGB ⟷ HEX ⟷ HSL ⟷ HSV ⟷ CMYK (with live swatch preview)
@@ -164,8 +170,6 @@
 #### 💱 Currency
 - Live Currency Converter (real-time exchange rates)
 
-</details>
-
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 ## 🌗 Theming
@@ -173,7 +177,7 @@
 CalcSuite ships with a full **dark and light theme system** built on CSS custom properties. The active theme is:
 
 1. Read from `localStorage` **before first paint** – no flash of the wrong theme
-2. Toggleable from the header at any time
+2. Toggleable from the header at any time (or with `Shift + D`)
 3. Persisted automatically for your next visit
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
@@ -276,7 +280,9 @@ CalcSuite/
 │   │   ├── numberSystem/
 │   │   │   ├── asciiText.js
 │   │   │   ├── base.js
+│   │   │   ├── cipher.js
 │   │   │   ├── fractionDecimal.js
+│   │   │   ├── morse.js
 │   │   │   ├── roman.js
 │   │   │   └── scientificNotation.js
 │   │   └── units/
@@ -300,6 +306,7 @@ CalcSuite/
 │   │   └── validators.js
 │   ├── views/
 │   │   ├── category.js
+│   │   ├── faq.js
 │   │   ├── home.js
 │   │   ├── library.js
 │   │   └── shared.js
@@ -332,6 +339,20 @@ CalcSuite/
 - 💾 **LocalStorage** — Theme, history, and favorites persistence
 - 📋 **Clipboard API** — One-click "copy result" on every tool
 - ✅ **Inline form validation** — Clear, immediate feedback on invalid input
+- 🔢 **BigInt** — Arbitrary-precision radix arithmetic in the Base tools
+- 🔐 **`crypto.getRandomValues`** — The Random Number generator's cryptographic mode
+- 🔊 **Web Audio API** — Morse playback synthesised live from an oscillator + gain envelope
+- 🧹 **Lifecycle cleanup** — Tools with timers or audio return a teardown function the router calls on navigation away, so nothing leaks
+- ⚙️ **Service Worker** — Cache-first app shell with lazy per-route caching for offline use
+
+### 🔬 Algorithms Worth A Look
+
+- **Stern–Brocot / continued fractions** — recovers `22/7` from `3.142857…`
+- **Euclidean GCD** — fraction reduction and the LCM/GCF tool
+- **Chi-squared frequency analysis** — ranks all 26 Caesar shifts to break a cipher without its key
+- **Calendar borrowing** — leap-year-safe age arithmetic
+- **Fisher–Yates shuffle** — unique random number sets
+- **WCAG relative luminance** — contrast-ratio grading in the Color converter
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
@@ -344,8 +365,6 @@ Contributions are always welcome!
 2. Create a feature branch (`git checkout -b feature/Amazing-Tool`)
 3. Commit your changes
 4. Push and open a Pull Request
-
-<img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
