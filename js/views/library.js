@@ -3,7 +3,7 @@
  */
 import { createEl, qs, on, escapeHTML } from '../utils/dom.js';
 import { getFavorites, getHistory, clearHistory } from '../utils/storage.js';
-import { getToolByKey, TOOLS, CATEGORIES } from '../tools.js';
+import { getToolByKey, CATEGORIES, TOOL_COUNT_LABEL } from '../tools.js';
 import { toolGridHTML, emptyStateHTML, wireFavStars } from './shared.js';
 import { fmtRelative } from '../utils/format.js';
 
@@ -69,7 +69,7 @@ export function renderAbout() {
     <header class="tool-head">
       <div class="tool-head-main">
         <h1>About CalcSuite</h1>
-        <p class="tool-desc">A framework-free single-page app: ${TOOLS.length} tools across ${CATEGORIES.length} categories, built with semantic HTML, CSS custom properties and ES modules.</p>
+        <p class="tool-desc">A framework-free single-page app: ${TOOL_COUNT_LABEL} tools across ${CATEGORIES.length} categories, built with semantic HTML, CSS custom properties and ES modules.</p>
       </div>
     </header>
 
