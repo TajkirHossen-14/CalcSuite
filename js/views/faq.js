@@ -6,7 +6,7 @@
  * filter narrows the list by question and answer text.
  */
 import { createEl, qs, qsa, on, debounce } from '../utils/dom.js';
-import { TOOLS, CATEGORIES } from '../tools.js';
+import { TOOLS, CATEGORIES, TOOL_COUNT_LABEL } from '../tools.js';
 import { emptyStateHTML } from './shared.js';
 
 const calcCount = TOOLS.filter((t) => t.group === 'calculators').length;
@@ -19,12 +19,12 @@ const convCount = TOOLS.filter((t) => t.group === 'converters').length;
 const SECTIONS = [
   {
     id: 'basics',
-    title: 'Getting Started',
+    title: 'Getting started',
     icon: 'fa-solid fa-circle-play',
     items: [
       {
         q: 'What is CalcSuite?',
-        a: `<p>A single-page collection of <strong>${TOOLS.length} calculators and converters</strong> —
+        a: `<p>A single-page collection of <strong>${TOOL_COUNT_LABEL} calculators and converters</strong> —
         ${calcCount} calculators and ${convCount} converters across ${CATEGORIES.length} categories.
         Everything runs in your browser, results update as you type, and there are no ads or
         pop-ups anywhere.</p>`
@@ -63,7 +63,7 @@ const SECTIONS = [
   },
   {
     id: 'features',
-    title: 'Favorites, History and Themes',
+    title: 'Favorites, history and themes',
     icon: 'fa-solid fa-star',
     items: [
       {
@@ -95,7 +95,7 @@ const SECTIONS = [
   },
   {
     id: 'privacy',
-    title: 'Privacy and Data',
+    title: 'Privacy and data',
     icon: 'fa-solid fa-shield-halved',
     items: [
       {
@@ -119,7 +119,7 @@ const SECTIONS = [
   },
   {
     id: 'accuracy',
-    title: 'Accuracy and Methods',
+    title: 'Accuracy and methods',
     icon: 'fa-solid fa-scale-balanced',
     items: [
       {
@@ -160,6 +160,16 @@ const SECTIONS = [
         digits, so 1 ÷ 3 appears as 0.333… rather than an endless string. Some conversions are also
         genuinely inexact by nature — a "US gallon" and an "imperial gallon" differ, and Morse code
         cannot represent letter case at all, which is why that tool tells you what it dropped.</p>`
+      },
+      {
+        q: 'Can I use the cipher tool to protect something private?',
+        a: `<p><strong>No.</strong> The <a href="#/converters/cipher">Text ⟷ Cipher</a> tool
+        implements <em>classical</em> ciphers — Caesar, ROT13, Atbash, Vigenère and A1Z26 — and none
+        of them offers real security. They are for puzzles, escape rooms, geocaching, CTF challenges
+        and learning how cryptography began. The tool even ships a solver that breaks a Caesar shift
+        without the key by ranking all 26 shifts against English letter frequencies, which shows the
+        problem directly. For anything genuinely confidential use modern encryption, not a
+        pen-and-paper cipher.</p>`
       }
     ]
   },
@@ -217,7 +227,7 @@ export function renderFAQ() {
 
     <header class="tool-head">
       <div class="tool-head-main">
-        <h1>Frequently Asked Questions</h1>
+        <h1>Frequently asked questions</h1>
         <p class="tool-desc">${TOTAL} answers about how CalcSuite works, what it stores and how far
         you should trust its numbers.</p>
       </div>
