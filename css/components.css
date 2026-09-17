@@ -4,8 +4,7 @@
 */
 
 /* ---------------- Buttons ---------------- */
-.btn 
-{
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -283,6 +282,24 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--fs-s
 .gpa-row .c-name { min-width: 9rem; }
 .gpa-row .c-credits { min-width: 4.5rem; }
 .gpa-row .c-grade { min-width: 8.5rem; }
+
+/* Cipher solver: mark the best-scoring candidate so the likely answer is
+   obvious without reading the numbers. */
+.data-table tbody tr.is-best { background: var(--primary-soft); }
+.data-table tbody tr.is-best td { color: var(--text); font-weight: 600; }
+
+/* The 26-column A→? alphabet map needs tighter cells to fit, and its row
+   headers sit in the first column rather than a sticky thead. */
+.cipher-alphabet th, .cipher-alphabet td { padding: .4rem .5rem; text-align: center; }
+.cipher-alphabet th[scope='row'] {
+  text-align: left;
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  background: var(--surface-2);
+  position: sticky; left: 0;
+}
 
 /* ---------------- Hero (home) ---------------- */
 .hero {
