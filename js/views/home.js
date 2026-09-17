@@ -1,19 +1,20 @@
 /**
  * home.js — hero + live-filterable grid of every tool, grouped by category.
  */
-import { CATEGORIES, TOOLS, countTools, getToolByKey } from '../tools.js';
+import { CATEGORIES, TOOLS, countTools, getToolByKey, TOOL_COUNT_LABEL } from '../tools.js';
 import { createEl, qs, qsa, on, debounce, escapeHTML } from '../utils/dom.js';
 import { getFavorites, getRecents } from '../utils/storage.js';
 import { categorySectionHTML, toolGridHTML, emptyStateHTML, wireFavStars } from './shared.js';
 
-export function renderHome() {
+export function renderHome() 
+{
   const favorites = getFavorites().map(getToolByKey).filter(Boolean);
   const recents = getRecents().map(getToolByKey).filter(Boolean).slice(0, 4);
 
   const view = createEl('div', { class: 'route-view' });
   view.innerHTML = `
     <section class="hero" id="hero-section">
-      <span class="hero-eyebrow"><i class="fa-solid fa-bolt" aria-hidden="true"></i> ${TOOLS.length} unified tools</span>
+      <span class="hero-eyebrow"><i class="fa-solid fa-bolt" aria-hidden="true"></i> ${TOOL_COUNT_LABEL} unified tools</span>
       <h1>Every calculator and converter, <em>in one modern place</em>.</h1>
       <p class="hero-lead">
         CalcSuite replaces hundreds of single-direction pages with a handful of unified,
@@ -41,13 +42,13 @@ export function renderHome() {
 
     ${favorites.length ? `
     <section class="favorites-section">
-      <div class="section-head"><i class="fa-solid fa-star cat-icon" style="color:var(--warning)"></i><h2>Your Favorites</h2><span class="count">${favorites.length}</span></div>
+      <div class="section-head"><i class="fa-solid fa-star cat-icon" style="color:var(--warning)"></i><h2>Your favorites</h2><span class="count">${favorites.length}</span></div>
       ${toolGridHTML(favorites)}
     </section>` : ''}
 
     <div class="home-search" role="search">
       <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
-      <input type="search" id="home-search" placeholder="Search ${TOOLS.length} tools — try “percentage”, “hex”, “bmi”…"
+      <input type="search" id="home-search" placeholder="Search ${TOOL_COUNT_LABEL} tools — try “percentage”, “hex”, “bmi”…"
              aria-label="Filter tools" autocomplete="off">
     </div>
 
@@ -105,6 +106,6 @@ export function renderHome() {
   });
 
   wireFavStars(view);
-  document.title = 'CalcSuite – Every Calculator & Converter You Need';
+  document.title = 'CalcSuite — Every calculator and converter you need';
   return view;
 }
