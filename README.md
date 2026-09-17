@@ -347,12 +347,12 @@ CalcSuite/
 
 ### 🔬 Algorithms Worth A Look
 
-- **Stern–Brocot / continued fractions** — recovers `22/7` from `3.142857…`
-- **Euclidean GCD** — fraction reduction and the LCM/GCF tool
-- **Chi-squared frequency analysis** — ranks all 26 Caesar shifts to break a cipher without its key
-- **Calendar borrowing** — leap-year-safe age arithmetic
-- **Fisher–Yates shuffle** — unique random number sets
-- **WCAG relative luminance** — contrast-ratio grading in the Color converter
+- **Stern–Brocot / continued fractions** — Recovers `22/7` from `3.142857…`
+- **Euclidean GCD** — Fraction reduction and the LCM/GCF tool
+- **Chi-squared frequency analysis** — Ranks all 26 Caesar shifts to break a cipher without its key
+- **Calendar borrowing** — Leap-year-safe age arithmetic
+- **Fisher–Yates shuffle** — Unique random number sets
+- **WCAG relative luminance** — Contrast-ratio grading in the Color converter
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=6591ee&height=2&section=header"/>
 
