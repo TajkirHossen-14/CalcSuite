@@ -1,10 +1,10 @@
 /* ============================================================
    CalcSuite — Reusable UI components
-   ============================================================ 
-*/
+   ============================================================ */
 
 /* ---------------- Buttons ---------------- */
-.btn {
+.btn 
+{
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -24,7 +24,8 @@
 .btn:active { transform: translateY(1px) scale(.985); }
 .btn:disabled { opacity: .5; cursor: not-allowed; }
 
-.btn-primary {
+.btn-primary 
+{
   background: var(--gradient-brand);
   border-color: transparent;
   color: #0b0d13;
@@ -564,8 +565,16 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--fs-s
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   gap: var(--sp-3);
-  align-items: end;
+  /* `stretch`, not `end`: the two sides then share one baseline for their
+     labels and one for their inputs. With `end` alignment the generic
+     `.field:last-child { margin-bottom: 0 }` rule applied to only the right
+     column, which shunted the left column up by exactly that margin and left
+     the two boxes visibly out of line. */
+  align-items: stretch;
 }
+/* Both columns must contribute the same box, so neither side can drift. */
+.conv-row > .field { margin-bottom: 0; }
+
 .swap-btn {
   width: 44px; height: 44px;
   border-radius: 50%;
@@ -574,14 +583,34 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: var(--fs-s
   background: var(--surface-2);
   color: var(--primary);
   cursor: pointer;
-  margin-bottom: 1px;
+  /* Centre the ⇄ on the controls, not on the whole column. Each field is
+     `label + gap + control(s)`, so the control block's midline sits half a
+     label-block below the column's midline; nudging down by that much lands the
+     button on the controls for any control height (a tall textarea, or an
+     input stacked over a select).
+     `position/top` rather than a margin: a margin is part of the layout box and
+     would make the button the tallest grid item on short controls, stretching
+     the row and throwing the centring off again. `top` never affects layout.
+     Not `transform` either — that is already used for the hover/spin states. */
+  align-self: center;
+  position: relative;
+  top: calc((var(--fs-sm) * 1.6 + .35rem) / 2);
   transition: transform var(--t-mid), background var(--t-fast), border-color var(--t-fast);
 }
+
+/* When each field also carries a hint *below* its control, that hint balances
+   the label above it and the column midline already lands on the controls, so
+   the compensation must be dropped (Roman Numerals is the case in point).
+   If a browser lacks :has(), the offset simply stays and that one tool sits a
+   few pixels low — a graceful degradation, not a break. */
+.conv-row:has(> .field > .field-hint:last-child) .swap-btn { top: 0; }
 .swap-btn:hover { background: var(--primary-soft); border-color: var(--primary); }
 .swap-btn.is-spinning { transform: rotate(180deg); }
 @media (max-width: 720px) {
   .conv-row { grid-template-columns: 1fr; }
-  .swap-btn { justify-self: center; transform: rotate(90deg); }
+  /* Stacked layout: the button sits in its own row between the two fields, so
+     the label-compensating offset from the desktop rule no longer applies. */
+  .swap-btn { justify-self: center; top: 0; transform: rotate(90deg); }
   .swap-btn.is-spinning { transform: rotate(270deg); }
 }
 
